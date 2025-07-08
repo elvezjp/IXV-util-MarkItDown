@@ -16,7 +16,17 @@ git remote add markitdown-upstream https://github.com/microsoft/markitdown.git
 
 # 最新の変更を取り込む
 git subtree pull --prefix=upstream markitdown-upstream main --squash
+
+# または、用意されたスクリプトを使用
+./scripts/update-upstream.sh
 ```
+
+#### コマンドの説明
+
+- `--prefix=upstream`: subtreeを配置するディレクトリを指定。この場合、`upstream/`ディレクトリ配下に取り込まれます
+- `markitdown-upstream`: リモートリポジトリの名前（上記で追加したリモート）
+- `main`: 取り込む対象のブランチ名（Microsoft MarkItDownのメインブランチ）
+- `--squash`: 取り込む際に、上流リポジトリの全コミット履歴を1つのコミットにまとめます。これにより、プロジェクトのコミット履歴をクリーンに保つことができます
 
 ---
 
