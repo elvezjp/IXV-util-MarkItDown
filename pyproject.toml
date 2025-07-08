@@ -3,7 +3,7 @@ name = "IXV-util-MarkItDown"
 version = "0.1.0"
 description = "Simple docx to Markdown converter"
 authors = [
-    {name = "IXV Team", email = ""},
+    {name = "Elvez", email = "info@elvez.co.jp"},
 ]
 license = {text = "MIT"}
 requires-python = ">=3.8"
@@ -23,7 +23,6 @@ packages = ["markitdown"]
 [tool.uv]
 dev-dependencies = [
     "pyinstaller>=6.0.0",
-    "py2app>=0.28.0",
     "pytest>=7.0.0",
     "black>=23.0.0",
     "ruff>=0.1.0",
@@ -35,3 +34,11 @@ entry-point = "wrapper.py"
 onefile = true
 name = "markitdown"
 console = true
+
+[tool.pyinstaller.macos]
+# macOS .appファイル作成用のPyInstaller設定
+script = "markitdown/cli.py"
+name = "MarkItDown"
+onedir = true
+windowed = true
+distpath = "./dist"

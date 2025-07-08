@@ -118,14 +118,14 @@ pyinstaller --onefile wrapper.py \
 ### macOS 用 `.app` のビルド
 
 ```bash
-# py2appをインストール
-uv pip install py2app
+# PyInstallerをインストール（dev-dependenciesに含まれています）
+uv sync
 
 # ビルド実行
-uv run python setup.py py2app
+uv run pyinstaller --onedir --windowed --name MarkItDown --distpath ./dist markitdown/cli.py
 ```
 
-- 出力：`dist/IXV-util-MarkItDown.app`
+- 出力：`dist/MarkItDown.app`
 
 ---
 
@@ -261,5 +261,4 @@ MIT License © 2025 IXV Team
 
 - [Microsoft MarkItDown](https://github.com/microsoft/MarkItDown)
 - [PyInstaller](https://www.pyinstaller.org/)
-- [py2app](https://github.com/ronaldoussoren/py2app)
 - アイコン素材：Font Awesome、Google Material Icons
