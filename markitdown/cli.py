@@ -29,9 +29,14 @@ def run_markitdown(argv):
     if 'markitdown' in sys.modules:
         del sys.modules['markitdown']
     
-    # Now import the upstream markitdown from site-packages
-    site_packages = next(p for p in sys.path if 'site-packages' in p)
-    sys.path.insert(0, site_packages)
+    # Try to find site-packages path, or use current path in PyInstaller environment
+    try:
+        site_packages = next(p for p in sys.path if 'site-packages' in p)
+        sys.path.insert(0, site_packages)
+        path_modified = True
+    except StopIteration:
+        # In PyInstaller environment, site-packages might not exist
+        path_modified = False
     
     try:
         # Import upstream markitdown
@@ -45,8 +50,9 @@ def run_markitdown(argv):
         finally:
             sys.argv = original_argv
     finally:
-        # Restore path
-        sys.path.pop(0)
+        # Restore path if it was modified
+        if path_modified:
+            sys.path.pop(0)
 
 
 def extract_text(docx_path):

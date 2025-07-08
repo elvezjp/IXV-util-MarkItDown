@@ -33,6 +33,7 @@ uv.lock
 
 # PyInstaller
 *.spec
+!IXV-util-MarkItDown*.spec
 
 # py2app
 .DS_Store
