@@ -16,7 +16,7 @@ IXV-util-MarkItDown は、Microsoft MarkItDown をベースにした `.docx` →
 
 ## 現在の実装状況
 
-**注意**: 現在の実装は独自のシンプルな変換機能のみを提供しており、Microsoft MarkItDown の upstream コードはまだ統合されていません。
+**注意**: 本ツールには 2 つの動作モードがあります。`upstream/` に格納された Microsoft MarkItDown を用いる **MarkItDown モード** と、独自実装のみで動作する **NoMarkItDown モード** です。プログラムを起動すると最初にどちらのモードを使用するか確認されます。
 
 ### 実装済み機能
 - **基本的なテキスト抽出**: .docx ファイルからテキストを抽出し、段落ごとに Markdown 形式で出力
@@ -57,6 +57,8 @@ IXV-util-MarkItDown は、Microsoft MarkItDown をベースにした `.docx` →
 ---
 
 ## 使い方
+
+実行すると最初に **MarkItDown モード** か **NoMarkItDown モード** を選択するプロンプトが表示されます。通常はその後、以下のように変換対象を指定します。
 
 ```bash
 # 単一ファイル変換
@@ -131,7 +133,7 @@ uv run pyinstaller --onedir --windowed --name MarkItDown --distpath ./dist marki
 
 ## 現在の CLI 実装について
 
-現在の CLI は `markitdown/cli.py` に実装されており、以下の処理を行います：
+このセクションでは **NoMarkItDown モード** で使用される CLI について説明します。`markitdown/cli.py` に実装されており、以下の処理を行います：
 
 1. **docx ファイルの解析**: Python の `zipfile` と `xml.etree.ElementTree` を使用
 2. **テキスト抽出**: `word/document.xml` から段落（`w:p`）とテキスト（`w:t`）要素を抽出
