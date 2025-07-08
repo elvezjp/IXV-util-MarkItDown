@@ -1,6 +1,9 @@
 import argparse
 import os
-from . import __version__
+try:
+    from . import __version__
+except ImportError:
+    __version__ = '0.1.0'
 import zipfile
 import xml.etree.ElementTree as ET
 
