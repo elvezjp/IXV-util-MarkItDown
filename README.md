@@ -14,23 +14,19 @@ IXV-util-MarkItDown は、Microsoft MarkItDown をベースにした `.docx` →
 
 ---
 
-## 現在の実装状況
+## 動作モード
 
-**注意**: 現在の実装は独自のシンプルな変換機能のみを提供しており、Microsoft MarkItDown の upstream コードはまだ統合されていません。
+本ツールには 2 つの動作モードがあります：
 
-### 実装済み機能
-- **基本的なテキスト抽出**: .docx ファイルからテキストを抽出し、段落ごとに Markdown 形式で出力
-- **クロスプラットフォーム対応**: Python ベースで Windows/macOS/Linux で動作
-- **シンプル CLI**: コマンドラインから簡単に使用可能
-- **一括処理**: 複数ファイルのバッチ変換をサポート
-- **柔軟な出力設定**: 出力ファイル名や出力ディレクトリの指定が可能
+1. **MarkItDown モード**: Microsoft MarkItDown の完全な機能を使用
+   - 画像、表、リスト、数式などの高度な変換に対応
+   - より多くのファイル形式をサポート
 
-### 未実装機能
-- 画像の抽出と変換
-- 表（テーブル）の構造保持
-- リスト（箇条書き・番号付き）の適切な変換
-- 数式の変換
-- スタイル情報（太字、斜体など）の保持
+2. **NoMarkItDown モード**: シンプルな独自実装
+   - 基本的なテキスト抽出のみ
+   - 軽量で高速な動作
+
+プログラムを起動すると、どちらのモードを使用するか選択できます。
 
 ---
 
@@ -42,7 +38,7 @@ IXV-util-MarkItDown は、Microsoft MarkItDown をベースにした `.docx` →
 2. 任意のフォルダに配置し、必要であれば PATH 環境変数に追加
 3. コマンドプロンプトまたは PowerShell で以下を実行
    ```bat
-   markitdown input.docx -o output.md
+   ixv-util-markitdown input.docx -o output.md
    ```
 
 ### macOS
@@ -51,22 +47,24 @@ IXV-util-MarkItDown は、Microsoft MarkItDown をベースにした `.docx` →
 2. DMG をマウントし、`Applications` フォルダにドラッグ＆ドロップ
 3. ターミナルで以下を実行
    ```bash
-   markitdown input.docx -o output.md
+   ixv-util-markitdown input.docx -o output.md
    ```
 
 ---
 
 ## 使い方
 
+実行すると最初に **MarkItDown モード** か **NoMarkItDown モード** を選択するプロンプトが表示されます。通常はその後、以下のように変換対象を指定します。
+
 ```bash
 # 単一ファイル変換
-markitdown input.docx -o output.md
+ixv-util-markitdown input.docx -o output.md
 
 # 複数ファイル一括変換
-markitdown *.docx -d docs/markdown
+ixv-util-markitdown *.docx -d docs/markdown
 
 # 変換オプション一覧
-markitdown --help
+ixv-util-markitdown --help
 ```
 
 - `-o, --output` : 出力ファイル名を指定
@@ -80,7 +78,7 @@ markitdown --help
 
 ### 前提
 
-- Python 3.8 以上
+- Python 3.10 以上
 - [uv](https://github.com/astral-sh/uv) (Python パッケージマネージャー)
 - git
 
@@ -108,12 +106,12 @@ uv pip install pyinstaller
 
 # ビルド実行
 pyinstaller --onefile wrapper.py \
-  --name markitdown.exe \
+  --name ixv-util-markitdown.exe \
   --icon resources/app.ico \
   --add-data "templates;templates"
 ```
 
-- 出力：`dist/markitdown.exe`
+- 出力：`dist/ixv-util-markitdown.exe`
 
 ### macOS 用 `.app` のビルド
 
@@ -122,30 +120,39 @@ pyinstaller --onefile wrapper.py \
 uv sync
 
 # ビルド実行
-uv run pyinstaller --onedir --windowed --name MarkItDown --distpath ./dist markitdown/cli.py
+uv run pyinstaller --onedir --windowed --name IXV-util-MarkItDown --distpath ./dist markitdown/cli.py
 ```
 
-- 出力：`dist/MarkItDown.app`
+- 出力：`dist/IXV-util-MarkItDown.app`
 
 ---
 
-## 現在の CLI 実装について
+## CLI 実装について
 
-現在の CLI は `markitdown/cli.py` に実装されており、以下の処理を行います：
+`markitdown/cli.py` に実装されたCLIは、選択されたモードに応じて以下の処理を行います：
 
-1. **docx ファイルの解析**: Python の `zipfile` と `xml.etree.ElementTree` を使用
-2. **テキスト抽出**: `word/document.xml` から段落（`w:p`）とテキスト（`w:t`）要素を抽出
-3. **Markdown 出力**: 抽出したテキストを段落ごとに空行で区切って出力
+### MarkItDown モード
+- Microsoft MarkItDown の完全な機能を使用
+- `upstream/packages/markitdown` のコードを実行
+- 画像、表、リスト、数式などの高度な変換に対応
+
+### NoMarkItDown モード
+- シンプルな独自実装を使用
+- Python の `zipfile` と `xml.etree.ElementTree` で docx ファイルを解析
+- `word/document.xml` から段落とテキストを抽出
+- 基本的なテキストのみを Markdown として出力
 
 ### コード構成
 
 ```
 markitdown/
-├── __init__.py      # バージョン情報
-└── cli.py          # メインのCLI実装
-    ├── extract_text()    # docxからテキスト抽出
-    ├── convert_file()    # ファイル変換処理
-    └── main()           # CLI エントリーポイント
+├── __init__.py          # バージョン情報
+└── cli.py              # メインのCLI実装
+    ├── choose_mode()    # モード選択プロンプト
+    ├── run_markitdown() # MarkItDownモードの実行
+    ├── extract_text()   # NoMarkItDownモードのテキスト抽出
+    ├── convert_file()   # NoMarkItDownモードのファイル変換
+    └── main()          # CLI エントリーポイント
 ```
 
 ## upstream について
