@@ -24,23 +24,29 @@ def choose_mode() -> str:
 
 def run_markitdown(argv):
     """Run the upstream MarkItDown CLI."""
-    upstream = os.path.join(
-        os.path.dirname(__file__), "..", "upstream", "packages", "markitdown", "src"
-    )
-    upstream = os.path.abspath(upstream)
-
-    # Remove this package to avoid name clashes and import upstream implementation
-    sys.modules.pop("markitdown", None)
-    sys.path.insert(0, upstream)
-
-    spec = importlib.util.find_spec("markitdown.__main__")
-    if spec is None or spec.loader is None:
-        raise ImportError("upstream MarkItDown not found")
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-
-    sys.argv = [sys.argv[0]] + (argv or [])
-    module.main()
+    # We need to handle the module name conflict
+    # First, remove our local markitdown module from sys.modules
+    if 'markitdown' in sys.modules:
+        del sys.modules['markitdown']
+    
+    # Now import the upstream markitdown from site-packages
+    site_packages = next(p for p in sys.path if 'site-packages' in p)
+    sys.path.insert(0, site_packages)
+    
+    try:
+        # Import upstream markitdown
+        import markitdown.__main__
+        
+        # Set up sys.argv for the markitdown main function
+        original_argv = sys.argv[:]
+        try:
+            sys.argv = [sys.argv[0]] + (argv or [])
+            markitdown.__main__.main()
+        finally:
+            sys.argv = original_argv
+    finally:
+        # Restore path
+        sys.path.pop(0)
 
 
 def extract_text(docx_path):
