@@ -61,21 +61,36 @@ markitdown --help
 ### 前提
 
 - Python 3.7 以上
-- pip, git
+- [uv](https://github.com/astral-sh/uv) (Python パッケージマネージャー)
+- git
 
 ### リポジトリのクローン
 
 ```bash
 git clone https://github.com/your-org/IXV-util-MarkItDown.git
 cd IXV-util-MarkItDown
-pip install -e .
+
+# uvのインストール（未インストールの場合）
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Python環境のセットアップと依存関係のインストール
+uv sync
+
+# 開発モードでインストール
+uv pip install -e .
 ```
 
 ### Windows 用 `.exe` のビルド
 
 ```bash
-pip install pyinstaller
-pyinstaller --onefile wrapper.py   --name markitdown.exe   --icon resources/app.ico   --add-data "templates;templates"
+# PyInstallerをインストール
+uv pip install pyinstaller
+
+# ビルド実行
+pyinstaller --onefile wrapper.py \
+  --name markitdown.exe \
+  --icon resources/app.ico \
+  --add-data "templates;templates"
 ```
 
 - 出力：`dist/markitdown.exe`
@@ -83,8 +98,11 @@ pyinstaller --onefile wrapper.py   --name markitdown.exe   --icon resources/app.
 ### macOS 用 `.app` のビルド
 
 ```bash
-pip install py2app
-python setup.py py2app
+# py2appをインストール
+uv pip install py2app
+
+# ビルド実行
+uv run python setup.py py2app
 ```
 
 - 出力：`dist/IXV-util-MarkItDown.app`
