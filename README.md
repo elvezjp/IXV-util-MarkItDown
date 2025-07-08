@@ -4,6 +4,22 @@ IXV-util-MarkItDown は、Microsoft MarkItDown をベースにした `.docx` →
 
 ---
 
+## git subtree について
+
+このプロジェクトは [Microsoft MarkItDown](https://github.com/microsoft/markitdown) を git subtree として `upstream/` ディレクトリに取り込んでいます。これにより、元のリポジトリの更新を取り込みながら、独自の機能拡張を行うことができます。
+
+### 上流の更新を取り込む方法
+
+```bash
+# 初回のみ: リモートを追加
+git remote add markitdown-upstream https://github.com/microsoft/markitdown.git
+
+# 最新の変更を取り込む
+git subtree pull --prefix=upstream markitdown-upstream main --squash
+```
+
+---
+
 ## 特徴
 
 - **高品質変換**：Microsoft MarkItDown のコア機能を利用し、画像・表・リスト・数式などを適切に Markdown に変換  
