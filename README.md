@@ -14,6 +14,26 @@ IXV-util-MarkItDown は、Microsoft MarkItDown をベースにした `.docx` →
 
 ---
 
+## 現在の実装状況
+
+**注意**: 現在の実装は独自のシンプルな変換機能のみを提供しており、Microsoft MarkItDown の upstream コードはまだ統合されていません。
+
+### 実装済み機能
+- **基本的なテキスト抽出**: .docx ファイルからテキストを抽出し、段落ごとに Markdown 形式で出力
+- **クロスプラットフォーム対応**: Python ベースで Windows/macOS/Linux で動作
+- **シンプル CLI**: コマンドラインから簡単に使用可能
+- **一括処理**: 複数ファイルのバッチ変換をサポート
+- **柔軟な出力設定**: 出力ファイル名や出力ディレクトリの指定が可能
+
+### 未実装機能
+- 画像の抽出と変換
+- 表（テーブル）の構造保持
+- リスト（箇条書き・番号付き）の適切な変換
+- 数式の変換
+- スタイル情報（太字、斜体など）の保持
+
+---
+
 ## インストール
 
 ### Windows
@@ -60,7 +80,7 @@ markitdown --help
 
 ### 前提
 
-- Python 3.7 以上
+- Python 3.8 以上
 - [uv](https://github.com/astral-sh/uv) (Python パッケージマネージャー)
 - git
 
@@ -108,6 +128,25 @@ uv run python setup.py py2app
 - 出力：`dist/IXV-util-MarkItDown.app`
 
 ---
+
+## 現在の CLI 実装について
+
+現在の CLI は `markitdown/cli.py` に実装されており、以下の処理を行います：
+
+1. **docx ファイルの解析**: Python の `zipfile` と `xml.etree.ElementTree` を使用
+2. **テキスト抽出**: `word/document.xml` から段落（`w:p`）とテキスト（`w:t`）要素を抽出
+3. **Markdown 出力**: 抽出したテキストを段落ごとに空行で区切って出力
+
+### コード構成
+
+```
+markitdown/
+├── __init__.py      # バージョン情報
+└── cli.py          # メインのCLI実装
+    ├── extract_text()    # docxからテキスト抽出
+    ├── convert_file()    # ファイル変換処理
+    └── main()           # CLI エントリーポイント
+```
 
 ## upstream について
 
