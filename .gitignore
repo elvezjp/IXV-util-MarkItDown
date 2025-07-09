@@ -54,6 +54,7 @@ htmlcov/
 !README.md
 !CONTRIBUTING.md
 !docs/**
+docs/README.md
 
 # Temporary files
 *.tmp
