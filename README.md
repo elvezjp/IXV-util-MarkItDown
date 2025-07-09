@@ -1,4 +1,5 @@
 # IXV-util-MarkItDown
+[English README](./README_en.md) is available.
 
 IXV-util-MarkItDown は、Microsoft MarkItDown をベースにした `.docx` → Markdown 変換ツールを、Windows の単一実行ファイル（`.exe`）および macOS アプリケーション（`.app`）としてバンドルしたクロスプラットフォーム CLI ユーティリティです
 
