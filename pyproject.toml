@@ -45,5 +45,4 @@ console = true
 script = "markitdown/cli.py"
 name = "MarkItDown"
 onedir = true
-windowed = true
-distpath = "./dist"
+windowed = truedistpath = "./dist"
