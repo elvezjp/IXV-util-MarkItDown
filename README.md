@@ -34,7 +34,7 @@ IXV-util-MarkItDown は、Microsoft MarkItDown をベースにした `.docx` →
 
 ### Windows
 
-1. [Releases](https://github.com/your-org/IXV-util-MarkItDown/releases) から最新版の `IXV-util-MarkItDown-<version>-win.exe` をダウンロード
+1. [Releases](https://github.com/elvezjp/IXV-util-MarkItDown/releases) から最新版の `IXV-util-MarkItDown-<version>-win.exe` をダウンロード
 2. 任意のフォルダに配置し、必要であれば PATH 環境変数に追加
 3. コマンドプロンプトまたは PowerShell で以下を実行
    ```bat
@@ -43,7 +43,7 @@ IXV-util-MarkItDown は、Microsoft MarkItDown をベースにした `.docx` →
 
 ### macOS
 
-1. [Releases](https://github.com/your-org/IXV-util-MarkItDown/releases) から `IXV-util-MarkItDown-<version>.dmg` をダウンロード
+1. [Releases](https://github.com/elvezjp/IXV-util-MarkItDown/releases) から `IXV-util-MarkItDown-<version>.dmg` をダウンロード
 2. DMG をマウントし、`Applications` フォルダにドラッグ＆ドロップ
 3. ターミナルで以下を実行
    ```bash
@@ -85,7 +85,7 @@ ixv-util-markitdown --help
 ### リポジトリのクローン
 
 ```bash
-git clone https://github.com/your-org/IXV-util-MarkItDown.git
+git clone https://github.com/elvezjp/IXV-util-MarkItDown.git
 cd IXV-util-MarkItDown
 
 # uvのインストール（未インストールの場合）
