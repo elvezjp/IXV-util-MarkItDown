@@ -4,6 +4,20 @@ IXV-util-MarkItDown bundles the Microsoft MarkItDown `.docx` to Markdown convert
 
 ---
 
+# About IXV and IXV-util Series
+
+## What is IXV?
+IXV is a next-generation AI development support platform developed by Elves Inc. It aims to support the entire software development process from requirements definition to design, implementation, testing, and operation by leveraging AI technology.
+
+## What is the IXV-util Series?
+The IXV-util series is a collection of lightweight utility tools born from the IXV development process, designed to support daily development tasks.
+
+These tools can be used not only as part of the IXV platform but also independently, with the goal of improving developers' daily work efficiency.
+
+They are also provided as open source and are continuously improved through collaboration with the developer community.
+
+---
+
 # Why Markdown?
 We have created many documents in software development projects. Legacy tools such as Word and Excel are difficult to parse and reuse programmatically. They look organized on the surface, but their underlying structure is ambiguous, making automated processing and AI utilization challenging. Markdown is close to plain text, requiring only minimal markup while still expressing important document structure. Modern large language models can speak Markdown natively and often respond in Markdown without being asked. We believe Markdown is the file format of note for interactions between humans and AI.
 
