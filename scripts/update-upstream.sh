@@ -64,4 +64,5 @@ else
     echo "コンフリクトを解決後、以下のコマンドでmainブランチにマージしてください:"
     echo "  git checkout $CURRENT_BRANCH"
     echo "  git merge --no-ff $UPDATE_BRANCH"
-    exit 1fi
+    exit 1
+fi
