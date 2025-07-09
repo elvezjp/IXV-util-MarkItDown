@@ -1,2 +1,8 @@
+title: IXV-util-MarkItDown
+description: GitHub Pages version of the IXV markdown utilities
+theme: jekyll-theme-primer
 plugins:
   - jekyll-readme-index
+
+# baseurl が必要な場合（GitHub Pages のリポジトリ名）
+baseurl: "/IXV-util-MarkItDown"
