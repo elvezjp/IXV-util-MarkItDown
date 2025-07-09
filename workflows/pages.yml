@@ -19,17 +19,30 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Copy README files
+
+      # README.md を docs にコピー
+      - name: Ensure README files exist and copy
         run: |
-          cp README.md docs/README.md
-          cp README_en.md docs/README_en.md
+          if [ -f README.md ]; then
+            cp README.md docs/README.md
+          else
+            echo "README.md not found!" && exit 1
+          fi
+
+          if [ -f README_en.md ]; then
+            cp README_en.md docs/README_en.md
+          fi
+
+      # Jekyll ビルド
       - uses: actions/jekyll-build-pages@v1
         with:
-          source: ./docs
-          destination: ./_site
+          source: docs
+          destination: docs/_site
+
+      # ページ用アーティファクトアップロード
       - uses: actions/upload-pages-artifact@v1
         with:
-          path: ./_site
+          path: docs/_site
 
   deploy:
     needs: build
