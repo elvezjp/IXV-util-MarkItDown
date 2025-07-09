@@ -20,18 +20,23 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # README.md を docs にコピー
-      - name: Ensure README files exist and copy
+      # ワークスペース確認（デバッグ用）
+      - name: List root files
+        run: ls -l
+
+      # README.md の存在確認とコピー
+      - name: Copy README.md to docs/
         run: |
-          if [ -f README.md ]; then
-            cp README.md docs/README.md
-          else
+          echo "Checking README.md..."
+          if [ ! -f README.md ]; then
             echo "README.md not found!" && exit 1
           fi
 
-          if [ -f README_en.md ]; then
-            cp README_en.md docs/README_en.md
-          fi
+          mkdir -p docs
+          cp README.md docs/README.md
+
+          echo "After copy:"
+          ls -l docs/
 
       # Jekyll ビルド
       - uses: actions/jekyll-build-pages@v1
@@ -39,7 +44,6 @@ jobs:
           source: docs
           destination: docs/_site
 
-      # ページ用アーティファクトアップロード
       - uses: actions/upload-pages-artifact@v1
         with:
           path: docs/_site
