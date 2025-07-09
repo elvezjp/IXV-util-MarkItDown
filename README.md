@@ -260,7 +260,7 @@ IXV-util-MarkItDown側で`upstream/`ディレクトリ内のファイルを独�
 
 ## ライセンス
 
-MIT License © 2025 IXV Team
+MIT License © 2025 株式会社エルブズ（Elvez, Inc.）
 
 ---
 
