@@ -1,5 +1,3 @@
-TODO: 現状はダミーのため、プロジェクトの実態に合わせて内容を修正する必要がある。
-
 # CONTRIBUTING
 
 Thank you for considering a contribution!
