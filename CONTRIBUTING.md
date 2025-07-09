@@ -4,6 +4,9 @@ TODO: 現状はダミーのため、プロジェクトの実態に合わせて�
 
 Thank you for considering a contribution!
 
+## Planned Contribution Flow
+We are currently planning the following contribution workflow, but it is not yet operational:
+
 ## Pull Request Flow
 
 1. Fork this repository and create a feature branch from `main`.
