@@ -111,8 +111,8 @@ uv pip install -e .
 ### Windows 用 `.exe` のビルド
 
 ```bash
-# PyInstallerをインストール
-uv pip install pyinstaller
+# PyInstallerをインストール（dev-dependenciesに含まれています）
+uv sync
 
 # ビルド実行
 pyinstaller --onefile wrapper.py \
@@ -129,11 +129,12 @@ pyinstaller --onefile wrapper.py \
 # PyInstallerをインストール（dev-dependenciesに含まれています）
 uv sync
 
-# ビルド実行
-uv run pyinstaller --onedir --windowed --name IXV-util-MarkItDown --distpath ./dist markitdown/cli.py
+# ビルド実行（macOS用specファイルを使用）
+uv run pyinstaller scripts/IXV-util-MarkItDown-mac.spec
 ```
 
 - 出力：`dist/IXV-util-MarkItDown.app`
+- 注意：markitdownライブラリの依存関係を適切に同梱するため、必ず`scripts/IXV-util-MarkItDown-mac.spec`を使用してください
 
 ---
 
