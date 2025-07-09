@@ -124,11 +124,12 @@ pyinstaller --onefile wrapper.py \
 # Install PyInstaller (included in dev dependencies)
 uv sync
 
-# Build
-uv run pyinstaller --onedir --windowed --name IXV-util-MarkItDown --distpath ./dist markitdown/cli.py
+# Build (using macOS spec file)
+uv run pyinstaller scripts/IXV-util-MarkItDown-mac.spec
 ```
 
 - Output: `dist/IXV-util-MarkItDown.app`
+- Note: Use `scripts/IXV-util-MarkItDown-mac.spec` to properly bundle the markitdown library dependencies
 
 ---
 
