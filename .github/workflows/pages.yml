@@ -1,0 +1,36 @@
+name: Update docs with README
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-docs:
+    runs-on: ubuntu-latest
+    steps:
+      # リポジトリのチェックアウト
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # Git の設定
+      - name: Configure Git
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+      # README.md を docs/index.md にコピー
+      - name: Copy README.md to docs/index.md
+        run: |
+          mkdir -p docs
+          cp README.md docs/index.md
+
+      # 変更をコミット・プッシュ
+      - name: Commit and push if changed
+        run: |
+          git add docs/index.md
+          git diff --staged --quiet || (git commit -m "Update docs/index.md from README.md" && git push)
