@@ -1,59 +1,37 @@
 # -*- mode: python ; coding: utf-8 -*-
 
 import os
+import site
 import sys
 from pathlib import Path
 
 # Get the project root directory
-project_root = Path(os.path.abspath(SPECPATH))
+project_root = Path(os.path.abspath(SPECPATH)).parent
 
 # Add the project root to Python path for imports
 sys.path.insert(0, str(project_root))
 
+# Get site_packages path
+def get_site_packages():
+      for path in sys.path:
+          if 'site-packages' in path and Path(path).exists():
+              return path
+      packages = site.getsitepackages()
+      if packages:
+          return packages[0]
+      return None
+
+site_packages = Path(get_site_packages())
+
 a = Analysis(
-    ['markitdown/cli.py'],
+    [str(project_root / 'src/cli.py')],
     pathex=[str(project_root)],
     binaries=[],
     datas=[
-        # Include the upstream markitdown package
-        ('upstream/packages/markitdown/src/markitdown', 'markitdown'),
-        # Include magika model files
-        ('.venv/lib/python3.11/site-packages/magika/models', 'magika/models'),
-        # Include magika config files
-        ('.venv/lib/python3.11/site-packages/magika/config', 'magika/config'),
+        (str(site_packages / 'magika/models'), 'magika/models'),
+        (str(site_packages / 'magika/config'), 'magika/config'),
     ],
-    hiddenimports=[
-        'markitdown',
-        'markitdown.__main__',
-        'markitdown._markitdown',
-        'markitdown._base_converter',
-        'markitdown._exceptions',
-        'markitdown._stream_info',
-        'markitdown._uri_utils',
-        'markitdown.converters',
-        'markitdown.converter_utils',
-        'beautifulsoup4',
-        'bs4',
-        'markdownify',
-        'mammoth',
-        'lxml',
-        'lxml.etree',
-        'lxml._elementpath',
-        'defusedxml',
-        'defusedxml.ElementTree',
-        'charset_normalizer',
-        'requests',
-        'urllib3',
-        'certifi',
-        'idna',
-        'magika',
-        'onnxruntime',
-        'numpy',
-        'protobuf',
-        'sympy',
-        'mpmath',
-        'cobble',
-    ],
+    hiddenimports=[],
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],

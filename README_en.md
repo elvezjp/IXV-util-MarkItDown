@@ -149,7 +149,7 @@ uv run pyinstaller scripts/IXV-util-MarkItDown-mac.spec
 
 ## About the CLI implementation
 
-The CLI implemented in `markitdown/cli.py` performs different actions depending on the selected mode:
+The CLI implemented in `src/cli.py` performs different actions depending on the selected mode:
 
 ### MarkItDown mode
 - Uses full Microsoft MarkItDown functionality.
@@ -164,7 +164,7 @@ The CLI implemented in `markitdown/cli.py` performs different actions depending 
 
 ### Code structure
 ```
-markitdown/
+src/
 ├── __init__.py          # Version information
 └── cli.py              # Main CLI implementation
     ├── choose_mode()    # Mode selection prompt
