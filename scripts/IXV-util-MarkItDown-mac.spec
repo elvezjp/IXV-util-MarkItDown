@@ -1,6 +1,7 @@
 # -*- mode: python ; coding: utf-8 -*-
 
 import os
+import site
 import sys
 from pathlib import Path
 
@@ -10,13 +11,25 @@ project_root = Path(os.path.abspath(SPECPATH)).parent
 # Add the project root to Python path for imports
 sys.path.insert(0, str(project_root))
 
+# Get site_packages path
+def get_site_packages():
+      for path in sys.path:
+          if 'site-packages' in path and Path(path).exists():
+              return path
+      packages = site.getsitepackages()
+      if packages:
+          return packages[0]
+      return None
+
+site_packages = Path(get_site_packages())
+
 a = Analysis(
     [str(project_root / 'src/cli.py')],
     pathex=[str(project_root)],
     binaries=[],
     datas=[
-        (str(project_root / '.venv/lib/python3.11/site-packages/magika/models'), 'magika/models'),
-        (str(project_root / '.venv/lib/python3.11/site-packages/magika/config'), 'magika/config'),
+        (str(site_packages / 'magika/models'), 'magika/models'),
+        (str(site_packages / 'magika/config'), 'magika/config'),
     ],
     hiddenimports=[],
     hookspath=[],

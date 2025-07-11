@@ -80,10 +80,13 @@ Markdownは、プレーンテキストに非常に近く、最小限のマーク
 
 ```bash
 # 単一ファイル変換
-ixv-util-markitdown input.docx -o output.md
+ixv-util-markitdown input.docx
 
 # 複数ファイル一括変換
-ixv-util-markitdown *.docx -d docs/markdown
+ixv-util-markitdown *.docx
+
+# 出力先のディレクトリを指定
+ixv-util-markitdown inputs/*.docx -d outputs
 
 # 変換オプション一覧
 ixv-util-markitdown --help
