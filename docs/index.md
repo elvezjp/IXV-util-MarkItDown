@@ -80,10 +80,13 @@ Markdownは、プレーンテキストに非常に近く、最小限のマーク
 
 ```bash
 # 単一ファイル変換
-ixv-util-markitdown input.docx -o output.md
+ixv-util-markitdown input.docx
 
 # 複数ファイル一括変換
-ixv-util-markitdown *.docx -d docs/markdown
+ixv-util-markitdown *.docx
+
+# 出力先のディレクトリを指定
+ixv-util-markitdown inputs/*.docx -d outputs
 
 # 変換オプション一覧
 ixv-util-markitdown --help
@@ -152,7 +155,7 @@ uv run pyinstaller scripts/IXV-util-MarkItDown-mac.spec
 
 ## CLI 実装について
 
-`markitdown/cli.py` に実装されたCLIは、選択されたモードに応じて以下の処理を行います：
+`src/cli.py` に実装されたCLIは、選択されたモードに応じて以下の処理を行います：
 
 ### MarkItDown モード
 - Microsoft MarkItDown の完全な機能を使用
@@ -168,7 +171,7 @@ uv run pyinstaller scripts/IXV-util-MarkItDown-mac.spec
 ### コード構成
 
 ```
-markitdown/
+src/
 ├── __init__.py          # バージョン情報
 └── cli.py              # メインのCLI実装
     ├── choose_mode()    # モード選択プロンプト
