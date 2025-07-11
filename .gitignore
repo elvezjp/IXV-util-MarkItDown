@@ -48,6 +48,7 @@ uv.lock
 .pytest_cache/
 .coverage
 htmlcov/
+inputs/
 
 # Output files
 *.md

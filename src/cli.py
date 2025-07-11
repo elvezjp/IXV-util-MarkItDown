@@ -1,7 +1,6 @@
 import argparse
 import os
 import sys
-import importlib.util
 
 try:
     from . import __version__
@@ -9,6 +8,7 @@ except ImportError:  # pragma: no cover - fallback for isolated execution
     __version__ = "0.1.0"
 import zipfile
 import xml.etree.ElementTree as ET
+from markitdown import MarkItDown
 
 
 def choose_mode() -> str:
@@ -22,41 +22,53 @@ def choose_mode() -> str:
         print("Please enter 1 or 2.")
 
 
-def run_markitdown(argv):
-    """Run the upstream MarkItDown CLI."""
-    # We need to handle the module name conflict
-    # First, remove our local markitdown module from sys.modules
-    if 'markitdown' in sys.modules:
-        del sys.modules['markitdown']
-    
-    # Try to find site-packages path, or use current path in PyInstaller environment
-    try:
-        site_packages = next(p for p in sys.path if 'site-packages' in p)
-        sys.path.insert(0, site_packages)
-        path_modified = True
-    except StopIteration:
-        # In PyInstaller environment, site-packages might not exist
-        path_modified = False
-    
-    try:
-        # Import upstream markitdown
-        import markitdown.__main__
-        
-        # Set up sys.argv for the markitdown main function
-        original_argv = sys.argv[:]
-        try:
-            sys.argv = [sys.argv[0]] + (argv or [])
-            markitdown.__main__.main()
-        finally:
-            sys.argv = original_argv
-    finally:
-        # Restore path if it was modified
-        if path_modified:
-            sys.path.pop(0)
+def parse_args(argv):
+    """Parse command line arguments."""
+    parser = argparse.ArgumentParser(description="Convert files to Markdown.")
+    parser.add_argument("files", nargs="+", help="Input files")
+    parser.add_argument("-o", "--output", help="Output file name (single input only)")
+    parser.add_argument("-d", "--directory", help="Output directory")
+    parser.add_argument("-v", "--version", action="version", version=__version__)
+    args = parser.parse_args(argv)
+
+    if args.output and len(args.files) > 1:
+        parser.error("--output can only be used with a single input file")
+
+    return args
 
 
-def extract_text(docx_path):
-    with zipfile.ZipFile(docx_path) as z:
+def get_output_path(input_path, args):
+    """Get output path based on arguments."""
+    if args.output:
+        return args.output
+    
+    name = os.path.splitext(os.path.basename(input_path))[0] + ".md"
+    if args.directory:
+        return os.path.join(args.directory, name)
+    else:
+        return os.path.join(os.path.dirname(input_path), name)
+
+
+def write_output(content, output_path):
+    """Write content to output file."""
+    with open(output_path, "w", encoding="utf-8") as f:
+        f.write(content)
+
+
+def run_markitdown(input_path):
+    """Convert file using MarkItDown."""
+    md = MarkItDown()
+    result = md.convert(str(input_path))
+    return result.text_content
+
+
+def run_nomarkitdown(input_path):
+    """Extract text from docx file (NoMarkItDown mode)."""
+    # Check if file is a docx file
+    if not input_path.lower().endswith('.docx'):
+        raise ValueError(f"Warning: NoMarkItDown mode only supports .docx files. Skipping: {input_path}")
+    
+    with zipfile.ZipFile(input_path) as z:
         with z.open("word/document.xml") as f:
             tree = ET.parse(f)
     ns = {"w": "http://schemas.openxmlformats.org/wordprocessingml/2006/main"}
@@ -68,38 +80,19 @@ def extract_text(docx_path):
     return "\n\n".join(paragraphs)
 
 
-def convert_file(input_path, output_path):
-    text = extract_text(input_path)
-    with open(output_path, "w", encoding="utf-8") as f:
-        f.write(text)
-
-
-def run_nomarkitdown(argv):
-    """Execute the simple converter bundled with this project."""
-    parser = argparse.ArgumentParser(description="Convert .docx files to Markdown.")
-    parser.add_argument("files", nargs="+", help="Input .docx files")
-    parser.add_argument("-o", "--output", help="Output file name (single input only)")
-    parser.add_argument("-d", "--directory", help="Output directory")
-    parser.add_argument("-v", "--version", action="version", version=__version__)
-    args = parser.parse_args(argv)
-
-    if args.output and len(args.files) > 1:
-        parser.error("--output can only be used with a single input file")
-
+def process_files(args, converter_func):
+    """Process files using the specified converter function."""
     if args.directory:
         os.makedirs(args.directory, exist_ok=True)
 
-    if args.output:
-        convert_file(args.files[0], args.output)
-        return
-
-    for path in args.files:
-        name = os.path.splitext(os.path.basename(path))[0] + ".md"
-        if args.directory:
-            out = os.path.join(args.directory, name)
-        else:
-            out = os.path.join(os.path.dirname(path), name)
-        convert_file(path, out)
+    for input_path in args.files:
+        try:
+            content = converter_func(input_path)
+            output_path = get_output_path(input_path, args)
+            write_output(content, output_path)
+            print(f"Converted: {input_path} -> {output_path}")
+        except Exception as e:
+            print(f"Error converting {input_path}: {e}")
 
 
 def main(argv=None):
@@ -107,11 +100,12 @@ def main(argv=None):
         argv = sys.argv[1:]
 
     choice = choose_mode()
+    args = parse_args(argv)
+    
     if choice == "1":
-        run_markitdown(argv)
-        return
-
-    run_nomarkitdown(argv)
+        process_files(args, run_markitdown)
+    else:
+        process_files(args, run_nomarkitdown)
 
 
 if __name__ == "__main__":
