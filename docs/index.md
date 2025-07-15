@@ -38,17 +38,8 @@ Markdownは、プレーンテキストに非常に近く、最小限のマーク
 
 ## 動作モード
 
-本ツールには 2 つの動作モードがあります：
-
-1. **MarkItDown モード**: Microsoft MarkItDown の完全な機能を使用
-   - 画像、表、リスト、数式などの高度な変換に対応
-   - より多くのファイル形式をサポート
-
-2. **NoMarkItDown モード**: シンプルな独自実装
-   - 基本的なテキスト抽出のみ
-   - 軽量で高速な動作
-
-プログラムを起動すると、どちらのモードを使用するか選択できます。
+本ツールは **MarkItDown モード** のみを搭載しており、Microsoft MarkItDown の
+完全な機能を利用して画像、表、リスト、数式などを適切に変換します。
 
 ---
 
@@ -76,7 +67,7 @@ Markdownは、プレーンテキストに非常に近く、最小限のマーク
 
 ## 使い方
 
-実行すると最初に **MarkItDown モード** か **NoMarkItDown モード** を選択するプロンプトが表示されます。通常はその後、以下のように変換対象を指定します。
+以下のように変換対象を指定して実行します。
 
 ```bash
 # 単一ファイル変換
@@ -162,22 +153,14 @@ uv run pyinstaller scripts/IXV-util-MarkItDown-mac.spec
 - `upstream/packages/markitdown` のコードを実行
 - 画像、表、リスト、数式などの高度な変換に対応
 
-### NoMarkItDown モード
-- シンプルな独自実装を使用
-- Python の `zipfile` と `xml.etree.ElementTree` で docx ファイルを解析
-- `word/document.xml` から段落とテキストを抽出
-- 基本的なテキストのみを Markdown として出力
-
 ### コード構成
 
 ```
 src/
 ├── __init__.py          # バージョン情報
 └── cli.py              # メインのCLI実装
-    ├── choose_mode()    # モード選択プロンプト
     ├── run_markitdown() # MarkItDownモードの実行
-    ├── extract_text()   # NoMarkItDownモードのテキスト抽出
-    ├── convert_file()   # NoMarkItDownモードのファイル変換
+    ├── process_files()  # ファイル変換処理
     └── main()          # CLI エントリーポイント
 ```
 

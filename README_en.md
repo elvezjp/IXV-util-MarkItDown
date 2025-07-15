@@ -33,19 +33,9 @@ We have created many documents in software development projects. Legacy tools su
 
 ---
 
-## Modes of operation
+## Mode of operation
 
-The tool has two modes:
-
-1. **MarkItDown mode**: Uses the full Microsoft MarkItDown functionality.
-   - Supports advanced conversion of images, tables, lists, formulas, and more.
-   - Handles more file formats.
-
-2. **NoMarkItDown mode**: Simple built-in implementation.
-   - Extracts only basic text.
-   - Lightweight and fast.
-
-You choose which mode to use when launching the program.
+This tool runs only in **MarkItDown mode**, using the full Microsoft MarkItDown functionality to properly convert images, tables, lists, formulas, and more.
 
 ---
 
@@ -73,7 +63,7 @@ You choose which mode to use when launching the program.
 
 ## Usage
 
-When executed, you are first asked to choose **MarkItDown mode** or **NoMarkItDown mode**. After choosing, specify your input as follows:
+Specify your input files as follows:
 
 ```bash
 # Convert a single file
@@ -156,21 +146,13 @@ The CLI implemented in `src/cli.py` performs different actions depending on the 
 - Executes code from `upstream/packages/markitdown`.
 - Supports advanced conversion of images, tables, lists, formulas, etc.
 
-### NoMarkItDown mode
-- Uses a simple internal implementation.
-- Parses docx files with Python's `zipfile` and `xml.etree.ElementTree`.
-- Extracts paragraphs and text from `word/document.xml`.
-- Outputs basic text as Markdown.
-
 ### Code structure
 ```
 src/
 ├── __init__.py          # Version information
 └── cli.py              # Main CLI implementation
-    ├── choose_mode()    # Mode selection prompt
     ├── run_markitdown() # Execute MarkItDown mode
-    ├── extract_text()   # Text extraction for NoMarkItDown mode
-    ├── convert_file()   # File conversion for NoMarkItDown mode
+    ├── process_files()  # File processing
     └── main()           # CLI entry point
 ```
 
