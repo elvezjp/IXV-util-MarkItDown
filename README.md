@@ -130,10 +130,7 @@ uv pip install -e .
 uv sync
 
 # ビルド実行
-pyinstaller --onefile wrapper.py \
-  --name ixv-util-markitdown.exe \
-  --icon resources/app.ico \
-  --add-data "templates;templates"
+pyinstaller --onefile wrapper.py --name ixv-util-markitdown.exe
 ```
 
 - 出力：`dist/ixv-util-markitdown.exe`
@@ -176,8 +173,8 @@ src/
 └── cli.py              # メインのCLI実装
     ├── choose_mode()    # モード選択プロンプト
     ├── run_markitdown() # MarkItDownモードの実行
-    ├── extract_text()   # NoMarkItDownモードのテキスト抽出
-    ├── convert_file()   # NoMarkItDownモードのファイル変換
+    ├── run_nomarkitdown()   # NoMarkItDownモードの実行
+    ├── process_files()   # ファイル処理共通ロジック
     └── main()          # CLI エントリーポイント
 ```
 

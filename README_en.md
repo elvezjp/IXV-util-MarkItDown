@@ -124,10 +124,7 @@ uv pip install -e .
 uv pip install pyinstaller
 
 # Build
-pyinstaller --onefile wrapper.py \
-  --name ixv-util-markitdown.exe \
-  --icon resources/app.ico \
-  --add-data "templates;templates"
+pyinstaller --onefile wrapper.py --name ixv-util-markitdown.exe
 ```
 
 - Output: `dist/ixv-util-markitdown.exe`
@@ -169,8 +166,8 @@ src/
 └── cli.py              # Main CLI implementation
     ├── choose_mode()    # Mode selection prompt
     ├── run_markitdown() # Execute MarkItDown mode
-    ├── extract_text()   # Text extraction for NoMarkItDown mode
-    ├── convert_file()   # File conversion for NoMarkItDown mode
+    ├── run_nomarkitdown()   # Execute NoMarkItDown mode
+    ├── process_files()   # Common file processing logic
     └── main()           # CLI entry point
 ```
 
