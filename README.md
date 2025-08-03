@@ -4,7 +4,7 @@
 <img width="1745" height="684" alt="ixv-util" src="https://github.com/user-attachments/assets/b4cca023-74f7-4068-897f-4558690fdbdd" />
 
 
-IXV-util-MarkItDown は、Microsoft MarkItDown をベースにした `.docx` → Markdown 変換ツールを、Windows の単一実行ファイル（`.exe`）および macOS アプリケーション（`.app`）としてバンドルしたクロスプラットフォーム CLI ユーティリティです
+IXV-util-MarkItDown は、Microsoft MarkItDown をベースにした Markdown 変換ツールを、Windows の単一実行ファイル（`.exe`）および macOS アプリケーション（`.app`）としてバンドルしたクロスプラットフォーム CLI ユーティリティです。MarkItDown モードでは `.docx` に限らず、MarkItDown ライブラリがサポートする PDF などのファイル形式も Markdown に変換できます。
 
 ---
 
@@ -45,7 +45,7 @@ Markdownは、プレーンテキストに非常に近く、最小限のマーク
 
 1. **MarkItDown モード**: Microsoft MarkItDown の完全な機能を使用
    - 画像、表、リスト、数式などの高度な変換に対応
-   - より多くのファイル形式をサポート
+   - 拡張子チェックを行わず、MarkItDown ライブラリがサポートする PDF や PPTX などのファイル形式を処理
 
 2. **NoMarkItDown モード**: シンプルな独自実装
    - `.docx` ファイルからの基本的なテキスト抽出のみ（他の拡張子はエラー）
@@ -65,6 +65,7 @@ Markdownは、プレーンテキストに非常に近く、最小限のマーク
    ```bat
    ixv-util-markitdown input.docx -o output.md
    ```
+   *MarkItDown モードでは `input.pdf` など他形式も指定できます。*
 
 ### macOS
 
@@ -74,6 +75,7 @@ Markdownは、プレーンテキストに非常に近く、最小限のマーク
    ```bash
    ixv-util-markitdown input.docx -o output.md
    ```
+   *MarkItDown モードでは `input.pdf` など他形式も指定できます。*
 
 ---
 
@@ -94,6 +96,8 @@ ixv-util-markitdown inputs/*.docx -d outputs
 # 変換オプション一覧
 ixv-util-markitdown --help
 ```
+
+*MarkItDown モードでは `input.pdf` のように `.docx` 以外のファイルも指定できます。*
 
 - `-o, --output` : 出力ファイル名を指定
 - `-d, --directory` : 出力先ディレクトリを指定（存在しない場合は作成）

@@ -1,6 +1,6 @@
 # IXV-util-MarkItDown
 
-IXV-util-MarkItDown bundles the Microsoft MarkItDown `.docx` to Markdown converter into a cross-platform CLI utility available as a standalone executable (`.exe`) for Windows and an application (`.app`) for macOS.
+IXV-util-MarkItDown bundles Microsoft MarkItDown into a cross-platform CLI utility available as a standalone executable (`.exe`) for Windows and an application (`.app`) for macOS. In MarkItDown mode it accepts not only `.docx` but also other formats supported by the library, such as PDF, and converts them to Markdown.
 
 ---
 
@@ -39,7 +39,7 @@ The tool has two modes:
 
 1. **MarkItDown mode**: Uses the full Microsoft MarkItDown functionality.
    - Supports advanced conversion of images, tables, lists, formulas, and more.
-   - Handles more file formats.
+   - Does not check file extensions and can handle any format supported by MarkItDown, such as PDF or PPTX.
 
 2. **NoMarkItDown mode**: Simple built-in implementation.
    - Extracts only basic text.
@@ -59,6 +59,7 @@ You choose which mode to use when launching the program.
    ```bat
    ixv-util-markitdown input.docx -o output.md
    ```
+   *In MarkItDown mode you may also specify other formats like `input.pdf`.*
 
 ### macOS
 
@@ -68,6 +69,7 @@ You choose which mode to use when launching the program.
    ```bash
    ixv-util-markitdown input.docx -o output.md
    ```
+   *In MarkItDown mode you may also specify other formats like `input.pdf`.*
 
 ---
 
@@ -85,6 +87,8 @@ ixv-util-markitdown *.docx -d docs/markdown
 # List options
 ixv-util-markitdown --help
 ```
+
+*MarkItDown mode also accepts non-`.docx` files such as `input.pdf`.*
 
 - `-o, --output` : Specify the output file name.
 - `-d, --directory` : Specify the output directory (creates it if it doesn't exist).
