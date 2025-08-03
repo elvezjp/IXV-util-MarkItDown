@@ -41,7 +41,7 @@ def get_output_path(input_path, args):
     """Get output path based on arguments."""
     if args.output:
         return args.output
-    
+
     name = os.path.splitext(os.path.basename(input_path))[0] + ".md"
     if args.directory:
         return os.path.join(args.directory, name)
@@ -56,18 +56,21 @@ def write_output(content, output_path):
 
 
 def run_markitdown(input_path):
-    """Convert file using MarkItDown."""
+    """Convert file using MarkItDown and return content and attachments."""
     md = MarkItDown()
     result = md.convert(str(input_path))
-    return result.text_content
+    attachments = getattr(result, "attachments", {}) or {}
+    return result.text_content, attachments
 
 
 def run_nomarkitdown(input_path):
     """Extract text from docx file (NoMarkItDown mode)."""
     # Check if file is a docx file
-    if not input_path.lower().endswith('.docx'):
-        raise ValueError(f"Warning: NoMarkItDown mode only supports .docx files. Skipping: {input_path}")
-    
+    if not input_path.lower().endswith(".docx"):
+        raise ValueError(
+            f"Warning: NoMarkItDown mode only supports .docx files. Skipping: {input_path}"
+        )
+
     with zipfile.ZipFile(input_path) as z:
         with z.open("word/document.xml") as f:
             tree = ET.parse(f)
@@ -77,7 +80,7 @@ def run_nomarkitdown(input_path):
         texts = [t.text for t in p.iterfind(".//w:t", ns) if t.text]
         if texts:
             paragraphs.append("".join(texts))
-    return "\n\n".join(paragraphs)
+    return "\n\n".join(paragraphs), {}
 
 
 def process_files(args, converter_func):
@@ -87,8 +90,42 @@ def process_files(args, converter_func):
 
     for input_path in args.files:
         try:
-            content = converter_func(input_path)
+            content, attachments = converter_func(input_path)
             output_path = get_output_path(input_path, args)
+            output_dir = os.path.dirname(output_path)
+
+            # Write attachments and update links in the markdown content
+            if isinstance(attachments, dict):
+                attachment_items = attachments.items()
+            else:
+                attachment_items = enumerate(attachments)
+
+            for idx, item in enumerate(attachment_items):
+                if isinstance(item, tuple) and len(item) == 2:
+                    key, attachment = item
+                else:
+                    key, attachment = None, item
+
+                filename = (
+                    getattr(attachment, "filename", None)
+                    or getattr(attachment, "name", None)
+                    or key
+                    or f"attachment_{idx}"
+                )
+                data = getattr(attachment, "data", getattr(attachment, "content", None))
+                if data is None:
+                    continue
+                basename = os.path.basename(filename)
+                attachment_path = os.path.join(output_dir, basename)
+                with open(attachment_path, "wb") as f:
+                    if isinstance(data, bytes):
+                        f.write(data)
+                    else:
+                        f.write(data.encode("utf-8"))
+                placeholder = key or getattr(attachment, "placeholder", None)
+                if placeholder:
+                    content = content.replace(placeholder, basename)
+
             write_output(content, output_path)
             print(f"Converted: {input_path} -> {output_path}")
         except Exception as e:
@@ -101,7 +138,7 @@ def main(argv=None):
 
     choice = choose_mode()
     args = parse_args(argv)
-    
+
     if choice == "1":
         process_files(args, run_markitdown)
     else:
