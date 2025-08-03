@@ -45,7 +45,7 @@ The tool has two modes:
    - Extracts only basic text.
    - Lightweight and fast.
 
-You choose which mode to use when launching the program.
+By default the program prompts you to choose a mode at startup. Specify `--mode` to skip the prompt.
 
 ---
 
@@ -75,7 +75,7 @@ You choose which mode to use when launching the program.
 
 ## Usage
 
-When executed, you are first asked to choose **MarkItDown mode** or **NoMarkItDown mode**. After choosing, specify your input as follows:
+When executed without `--mode`, you are asked to choose **MarkItDown mode** or **NoMarkItDown mode**. After choosing, specify your input as follows:
 
 ```bash
 # Convert a single file
@@ -90,10 +90,23 @@ ixv-util-markitdown --help
 
 *MarkItDown mode also accepts non-`.docx` files such as `input.pdf`.*
 
+### Non-interactive mode
+
+```bash
+# Run in MarkItDown mode
+ixv-util-markitdown input.docx --mode markitdown
+
+# Run in NoMarkItDown mode
+ixv-util-markitdown input.docx --mode nomarkitdown
+```
+
+- `--mode` : Choose conversion mode without a prompt (`markitdown` or `nomarkitdown`).
 - `-o, --output` : Specify the output file name.
 - `-d, --directory` : Specify the output directory (creates it if it doesn't exist).
 - `-v, --version` : Display version.
 - `-h, --help`    : Show help.
+
+Mode selection is not required when only displaying help (`--help`) or version information (`--version`).
 
 ---
 

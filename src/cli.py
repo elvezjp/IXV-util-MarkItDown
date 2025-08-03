@@ -28,6 +28,11 @@ def parse_args(argv):
     parser.add_argument("files", nargs="+", help="Input files")
     parser.add_argument("-o", "--output", help="Output file name (single input only)")
     parser.add_argument("-d", "--directory", help="Output directory")
+    parser.add_argument(
+        "--mode",
+        choices=["markitdown", "nomarkitdown"],
+        help="Conversion mode (skip prompt)",
+    )
     parser.add_argument("-v", "--version", action="version", version=__version__)
     args = parser.parse_args(argv)
 
@@ -98,11 +103,14 @@ def process_files(args, converter_func):
 def main(argv=None):
     if argv is None:
         argv = sys.argv[1:]
-
-    choice = choose_mode()
     args = parse_args(argv)
-    
-    if choice == "1":
+    mode = args.mode
+
+    if mode is None:
+        choice = choose_mode()
+        mode = "markitdown" if choice == "1" else "nomarkitdown"
+
+    if mode == "markitdown":
         process_files(args, run_markitdown)
     else:
         process_files(args, run_nomarkitdown)
