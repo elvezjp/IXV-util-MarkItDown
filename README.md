@@ -81,7 +81,7 @@ Markdownは、プレーンテキストに非常に近く、最小限のマーク
 
 ## 使い方
 
-実行すると最初に **MarkItDown モード** か **NoMarkItDown モード** を選択するプロンプトが表示されます。通常はその後、以下のように変換対象を指定します。
+変換したいファイルパスを引数に指定して実行すると、直後に **MarkItDown モード** と **NoMarkItDown モード** の選択プロンプトが表示されます。
 
 ```bash
 # 単一ファイル変換
@@ -98,7 +98,20 @@ ixv-util-markitdown --help
 ```
 
 *MarkItDown モードでは `input.pdf` のように `.docx` 以外のファイルも指定できます。*
+### 非対話モード
 
+`--mode` オプションを指定するとモード選択のプロンプトをスキップできます。
+
+```bash
+# MarkItDown モードで実行
+ixv-util-markitdown input.docx --mode markitdown
+
+# NoMarkItDown モードで実行
+ixv-util-markitdown input.docx --mode nomarkitdown
+```
+
+
+- `--mode` : 非対話モードで動作モードを指定（`markitdown` または `nomarkitdown`）
 - `-o, --output` : 出力ファイル名を指定
 - `-d, --directory` : 出力先ディレクトリを指定（存在しない場合は作成）
 - `-v, --version` : バージョン表示
