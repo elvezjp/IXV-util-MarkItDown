@@ -56,9 +56,9 @@ def write_output(content, output_path):
 
 
 def run_markitdown(input_path):
-    """Convert file using MarkItDown."""
+    """Convert file using MarkItDown with base64 image embedding."""
     md = MarkItDown()
-    result = md.convert(str(input_path))
+    result = md.convert(str(input_path), keep_data_uris=True)
     return result.text_content
 
 
