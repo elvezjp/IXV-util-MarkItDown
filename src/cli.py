@@ -9,6 +9,10 @@ except ImportError:  # pragma: no cover - fallback for isolated execution
 import zipfile
 import xml.etree.ElementTree as ET
 from markitdown import MarkItDown
+try:
+    from .image_extractor import extract_and_save_images, count_base64_images
+except ImportError:
+    from image_extractor import extract_and_save_images, count_base64_images
 
 
 def choose_mode() -> str:
@@ -29,6 +33,14 @@ def parse_args(argv):
     parser.add_argument("-o", "--output", help="Output file name (single input only)")
     parser.add_argument("-d", "--directory", help="Output directory")
     parser.add_argument("-v", "--version", action="version", version=__version__)
+    
+    # Image handling options
+    parser.add_argument(
+        "--no-save-images", 
+        action="store_true", 
+        help="Keep images as base64 data URIs in markdown (default: save as separate files)"
+    )
+    
     args = parser.parse_args(argv)
 
     if args.output and len(args.files) > 1:
@@ -55,11 +67,24 @@ def write_output(content, output_path):
         f.write(content)
 
 
-def run_markitdown(input_path):
-    """Convert file using MarkItDown with base64 image embedding."""
+def run_markitdown(input_path, save_images=True, output_path=None):
+    """Convert file using MarkItDown with configurable image handling."""
     md = MarkItDown()
-    result = md.convert(str(input_path), keep_data_uris=True)
-    return result.text_content
+    
+    if save_images:
+        # Convert with base64 images first, then extract and save them
+        result = md.convert(str(input_path), keep_data_uris=True)
+        content = result.text_content
+        
+        if output_path and count_base64_images(content) > 0:
+            content = extract_and_save_images(content, output_path)
+            print(f"Extracted and saved {count_base64_images(result.text_content)} images to {os.path.splitext(os.path.basename(output_path))[0]}_images/")
+        
+        return content
+    else:
+        # Keep base64 images embedded
+        result = md.convert(str(input_path), keep_data_uris=True)
+        return result.text_content
 
 
 def run_nomarkitdown(input_path):
@@ -85,10 +110,17 @@ def process_files(args, converter_func):
     if args.directory:
         os.makedirs(args.directory, exist_ok=True)
 
+    save_images = not args.no_save_images
+
     for input_path in args.files:
         try:
-            content = converter_func(input_path)
             output_path = get_output_path(input_path, args)
+            
+            if converter_func == run_markitdown:
+                content = converter_func(input_path, save_images=save_images, output_path=output_path)
+            else:
+                content = converter_func(input_path)
+                
             write_output(content, output_path)
             print(f"Converted: {input_path} -> {output_path}")
         except Exception as e:

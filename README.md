@@ -114,8 +114,52 @@ ixv-util-markitdown input.docx --mode nomarkitdown
 - `--mode` : 非対話モードで動作モードを指定（`markitdown` または `nomarkitdown`）
 - `-o, --output` : 出力ファイル名を指定
 - `-d, --directory` : 出力先ディレクトリを指定（存在しない場合は作成）
+- `--no-save-images` : 画像をbase64データURIとしてマークダウンに埋め込み（デフォルト：画像ファイルとして保存）
 - `-v, --version` : バージョン表示
 - `-h, --help`    : ヘルプ表示
+
+### 画像の取り扱い
+
+**MarkItDown モード**では、文書に含まれる画像を以下の2つの方法で処理できます：
+
+#### 1. 画像ファイル保存モード（デフォルト）
+```bash
+# 画像を個別ファイルとして保存（推奨）
+ixv-util-markitdown document.docx -o output.md
+```
+
+- 画像は `{出力ファイル名}_images/` ディレクトリに保存されます
+- ファイル名は `image1.png`, `image2.jpg` のように連番で命名されます
+- マークダウンからは相対パスで参照：`![alt text](output_images/image1.png)`
+- **メリット**：マークダウンファイルのサイズが小さく、可読性が向上
+
+#### 2. base64埋め込みモード
+```bash
+# 画像をbase64データとしてマークダウンに埋め込み
+ixv-util-markitdown document.docx -o output.md --no-save-images
+```
+
+- 画像データがbase64形式でマークダウンに直接埋め込まれます
+- 単一ファイルで完結するため、ファイル共有が簡単
+- **注意**：ファイルサイズが大きくなり、テキストエディタでの編集が困難
+
+#### 複数ファイル処理時の画像管理
+```bash
+# 複数ファイルを一括変換
+ixv-util-markitdown *.docx -d outputs
+```
+
+各ファイルごとに独立した画像ディレクトリが作成されるため、画像ファイル名の競合は発生しません：
+```
+outputs/
+├── document1.md
+├── document1_images/
+│   ├── image1.png
+│   └── image2.jpg
+├── document2.md
+└── document2_images/
+    └── image1.png
+```
 
 ---
 

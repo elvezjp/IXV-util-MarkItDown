@@ -25,13 +25,14 @@ site_packages = Path(get_site_packages())
 
 a = Analysis(
     [str(project_root / 'src/cli.py')],
-    pathex=[str(project_root)],
+    pathex=[str(project_root), str(project_root / 'src')],
     binaries=[],
     datas=[
         (str(site_packages / 'magika/models'), 'magika/models'),
         (str(site_packages / 'magika/config'), 'magika/config'),
+        (str(project_root / 'src/image_extractor.py'), '.'),
     ],
-    hiddenimports=[],
+    hiddenimports=['image_extractor'],
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
