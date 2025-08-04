@@ -34,32 +34,11 @@ def parse_args(argv):
     parser.add_argument("-d", "--directory", help="Output directory")
     parser.add_argument("-v", "--version", action="version", version=__version__)
     
-    # Mode selection options
-    mode_group = parser.add_mutually_exclusive_group()
-    mode_group.add_argument(
-        "--markitdown", 
-        action="store_true", 
-        default=True,
-        help="Use MarkItDown converter (default)"
-    )
-    mode_group.add_argument(
-        "--nomarkitdown", 
-        action="store_true", 
-        help="Use simple NoMarkItDown converter (docx only)"
-    )
-    
     # Image handling options
-    image_group = parser.add_mutually_exclusive_group()
-    image_group.add_argument(
-        "--save-images", 
-        action="store_true", 
-        default=True,
-        help="Save images as separate files (default)"
-    )
-    image_group.add_argument(
+    parser.add_argument(
         "--no-save-images", 
         action="store_true", 
-        help="Keep images as base64 data URIs in markdown"
+        help="Keep images as base64 data URIs in markdown (default: save as separate files)"
     )
     
     args = parser.parse_args(argv)
@@ -152,21 +131,13 @@ def main(argv=None):
     if argv is None:
         argv = sys.argv[1:]
 
+    choice = choose_mode()
     args = parse_args(argv)
     
-    # Determine mode from arguments or interactive choice
-    if args.nomarkitdown:
-        process_files(args, run_nomarkitdown)
-    elif args.markitdown or len(argv) > 0:
-        # If arguments provided or explicitly markitdown, use markitdown
+    if choice == "1":
         process_files(args, run_markitdown)
     else:
-        # Interactive mode
-        choice = choose_mode()
-        if choice == "1":
-            process_files(args, run_markitdown)
-        else:
-            process_files(args, run_nomarkitdown)
+        process_files(args, run_nomarkitdown)
 
 
 if __name__ == "__main__":
