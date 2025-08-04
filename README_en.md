@@ -92,8 +92,52 @@ ixv-util-markitdown --help
 
 - `-o, --output` : Specify the output file name.
 - `-d, --directory` : Specify the output directory (creates it if it doesn't exist).
+- `--no-save-images` : Embed images as base64 data URIs in markdown (default: save as separate files).
 - `-v, --version` : Display version.
 - `-h, --help`    : Show help.
+
+### Image Handling
+
+In **MarkItDown mode**, images contained in documents can be processed in two ways:
+
+#### 1. Image File Saving Mode (Default)
+```bash
+# Save images as separate files (recommended)
+ixv-util-markitdown document.docx -o output.md
+```
+
+- Images are saved to a `{output_filename}_images/` directory
+- Files are named sequentially: `image1.png`, `image2.jpg`, etc.
+- Referenced from markdown with relative paths: `![alt text](output_images/image1.png)`
+- **Benefits**: Smaller markdown file size and improved readability
+
+#### 2. Base64 Embedding Mode
+```bash
+# Embed images as base64 data in markdown
+ixv-util-markitdown document.docx -o output.md --no-save-images
+```
+
+- Image data is directly embedded in markdown as base64 format
+- Self-contained single file makes sharing easier
+- **Note**: Results in larger file sizes and difficult text editor handling
+
+#### Image Management for Multiple Files
+```bash
+# Batch convert multiple files
+ixv-util-markitdown *.docx -d outputs
+```
+
+Independent image directories are created for each file, preventing filename conflicts:
+```
+outputs/
+├── document1.md
+├── document1_images/
+│   ├── image1.png
+│   └── image2.jpg
+├── document2.md
+└── document2_images/
+    └── image1.png
+```
 
 ---
 
