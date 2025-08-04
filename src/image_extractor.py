@@ -17,7 +17,7 @@ def extract_and_save_images(markdown_content: str, output_file_path: str) -> str
     """
     # Create images directory
     base_name = os.path.splitext(os.path.basename(output_file_path))[0]
-    images_dir = os.path.join(os.path.dirname(output_file_path), f"{base_name}_images")
+    images_dir = os.path.join(os.path.dirname(output_file_path), "images")
     
     # Pattern to match markdown images with data URI
     pattern = r'!\[([^\]]*)\]\(data:([^;]+);base64,([^)]+)\)'
@@ -35,7 +35,7 @@ def extract_and_save_images(markdown_content: str, output_file_path: str) -> str
         extension = _get_extension_from_mime_type(mime_type)
         
         # Generate unique filename
-        filename = f"image{image_counter}{extension}"
+        filename = f"{base_name}_image{image_counter}{extension}"
         image_counter += 1
         
         # Ensure images directory exists
@@ -53,7 +53,7 @@ def extract_and_save_images(markdown_content: str, output_file_path: str) -> str
             return match.group(0)
         
         # Return relative path link
-        relative_image_path = os.path.join(f"{base_name}_images", filename)
+        relative_image_path = os.path.join("images", filename)
         return f"![{alt_text}]({relative_image_path})"
     
     # Replace all base64 images with file links

@@ -78,7 +78,7 @@ def run_markitdown(input_path, save_images=True, output_path=None):
         
         if output_path and count_base64_images(content) > 0:
             content = extract_and_save_images(content, output_path)
-            print(f"Extracted and saved {count_base64_images(result.text_content)} images to {os.path.splitext(os.path.basename(output_path))[0]}_images/")
+            print(f"Extracted and saved {count_base64_images(result.text_content)} images to images/")
         
         return content
     else:

@@ -106,9 +106,9 @@ In **MarkItDown mode**, images contained in documents can be processed in two wa
 ixv-util-markitdown document.docx -o output.md
 ```
 
-- Images are saved to a `{output_filename}_images/` directory
-- Files are named sequentially: `image1.png`, `image2.jpg`, etc.
-- Referenced from markdown with relative paths: `![alt text](output_images/image1.png)`
+- Images are saved to an `images/` directory
+- Files are named: `{filename}_image1.png`, `{filename}_image2.jpg`, etc.
+- Referenced from markdown with relative paths: `![alt text](images/output_image1.png)`
 - **Benefits**: Smaller markdown file size and improved readability
 
 #### 2. Base64 Embedding Mode
@@ -127,16 +127,15 @@ ixv-util-markitdown document.docx -o output.md --no-save-images
 ixv-util-markitdown *.docx -d outputs
 ```
 
-Independent image directories are created for each file, preventing filename conflicts:
+Each file gets a filename prefix to prevent filename conflicts:
 ```
 outputs/
 ├── document1.md
-├── document1_images/
-│   ├── image1.png
-│   └── image2.jpg
 ├── document2.md
-└── document2_images/
-    └── image1.png
+└── images/
+    ├── document1_image1.png
+    ├── document1_image2.jpg
+    └── document2_image1.png
 ```
 
 ---

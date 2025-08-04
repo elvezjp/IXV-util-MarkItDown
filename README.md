@@ -128,9 +128,9 @@ ixv-util-markitdown input.docx --mode nomarkitdown
 ixv-util-markitdown document.docx -o output.md
 ```
 
-- 画像は `{出力ファイル名}_images/` ディレクトリに保存されます
-- ファイル名は `image1.png`, `image2.jpg` のように連番で命名されます
-- マークダウンからは相対パスで参照：`![alt text](output_images/image1.png)`
+- 画像は `images/` ディレクトリに保存されます
+- ファイル名は `{ファイル名}_image1.png`, `{ファイル名}_image2.jpg` のように命名されます
+- マークダウンからは相対パスで参照：`![alt text](images/output_image1.png)`
 - **メリット**：マークダウンファイルのサイズが小さく、可読性が向上
 
 #### 2. base64埋め込みモード
@@ -149,16 +149,15 @@ ixv-util-markitdown document.docx -o output.md --no-save-images
 ixv-util-markitdown *.docx -d outputs
 ```
 
-各ファイルごとに独立した画像ディレクトリが作成されるため、画像ファイル名の競合は発生しません：
+各ファイルにファイル名がプレフィックスとして付与されるため、画像ファイル名の競合は発生しません：
 ```
 outputs/
 ├── document1.md
-├── document1_images/
-│   ├── image1.png
-│   └── image2.jpg
 ├── document2.md
-└── document2_images/
-    └── image1.png
+└── images/
+    ├── document1_image1.png
+    ├── document1_image2.jpg
+    └── document2_image1.png
 ```
 
 ---
