@@ -53,6 +53,27 @@ Markdownは、プレーンテキストに非常に近く、最小限のマーク
 
 プログラムを起動すると、どちらのモードを使用するか選択できます。
 
+## 対応ファイル形式
+
+MarkItDown モードでは、以下のファイル形式を Markdown に変換できます：
+
+- Word: `.docx`
+- PDF: `.pdf`
+- PowerPoint: `.pptx`
+- Excel: `.xlsx`, `.xls`
+- CSV: `.csv`
+- プレーンテキスト/マークダウン/JSON: `.txt`, `.text`, `.md`, `.markdown`, `.json`, `.jsonl`
+- 画像: `.jpg`, `.jpeg`, `.png`
+- 音声/動画: `.wav`, `.mp3`, `.m4a`, `.mp4`
+- Jupyter Notebook: `.ipynb`
+- 電子書籍: `.epub`
+- Outlook メール: `.msg`
+- アーカイブ: `.zip`
+- HTML ページやウェブサイト（YouTube、Wikipedia、Bing 検索結果など）
+- RSS/Atom/汎用 XML: `.rss`, `.atom`, `.xml`
+
+NoMarkItDown モードは `.docx` のみ対応です。
+
 ---
 
 ## インストール
