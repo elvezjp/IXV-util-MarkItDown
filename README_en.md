@@ -47,6 +47,27 @@ The tool has two modes:
 
 You choose which mode to use when launching the program.
 
+## Supported File Formats
+
+MarkItDown mode can convert the following file formats to Markdown:
+
+- Word: `.docx`
+- PDF: `.pdf`
+- PowerPoint: `.pptx`
+- Excel: `.xlsx`, `.xls`
+- CSV: `.csv`
+- Plain text/Markdown/JSON: `.txt`, `.text`, `.md`, `.markdown`, `.json`, `.jsonl`
+- Images: `.jpg`, `.jpeg`, `.png`
+- Audio/Video: `.wav`, `.mp3`, `.m4a`, `.mp4`
+- Jupyter Notebook: `.ipynb`
+- E-books: `.epub`
+- Outlook emails: `.msg`
+- Archives: `.zip`
+- HTML pages and websites (YouTube, Wikipedia, Bing search results, etc.)
+- RSS/Atom/Generic XML: `.rss`, `.atom`, `.xml`
+
+NoMarkItDown mode only supports `.docx` files.
+
 ---
 
 ## Installation

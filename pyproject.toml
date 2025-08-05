@@ -41,9 +41,9 @@ name = "markitdown"
 console = true
 
 [tool.pyinstaller.macos]
-# macOS .appファイル作成用のPyInstaller設定
-script = "markitdown/cli.py"
-name = "MarkItDown"
-onedir = true
-windowed = true
+# macOS 単一実行ファイル作成用のPyInstaller設定
+entry-point = "wrapper.py"
+onefile = true
+name = "ixv-util-markitdown"
+console = true
 distpath = "./dist"

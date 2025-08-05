@@ -49,6 +49,7 @@ uv.lock
 .coverage
 htmlcov/
 inputs/
+outputs/
 
 # Output files
 *.md
