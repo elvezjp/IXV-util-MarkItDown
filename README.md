@@ -98,6 +98,7 @@ ixv-util-markitdown --help
 ```
 
 *MarkItDown モードでは `input.pdf` のように `.docx` 以外のファイルも指定できます。*
+
 ### 非対話モード
 
 `--mode` オプションを指定するとモード選択のプロンプトをスキップできます。
@@ -109,7 +110,6 @@ ixv-util-markitdown input.docx --mode markitdown
 # NoMarkItDown モードで実行
 ixv-util-markitdown input.docx --mode nomarkitdown
 ```
-
 
 - `--mode` : 非対話モードで動作モードを指定（`markitdown` または `nomarkitdown`）
 - `-o, --output` : 出力ファイル名を指定
