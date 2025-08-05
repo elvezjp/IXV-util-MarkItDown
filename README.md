@@ -90,9 +90,16 @@ NoMarkItDown モードは `.docx` のみ対応です。
 
 ### macOS
 
-1. [Releases](https://github.com/elvezjp/IXV-util-MarkItDown/releases) から `IXV-util-MarkItDown-<version>.dmg` をダウンロード
-2. DMG をマウントし、`Applications` フォルダにドラッグ＆ドロップ
-3. ターミナルで以下を実行
+1. [Releases](https://github.com/elvezjp/IXV-util-MarkItDown/releases) から最新版の `ixv-util-markitdown-<version>-mac` をダウンロード
+2. 任意のフォルダに配置し、実行権限を付与
+   ```bash
+   chmod +x ixv-util-markitdown-<version>-mac
+   ```
+3. 必要であれば PATH 環境変数に追加するか、`/usr/local/bin` にシンボリックリンクを作成
+   ```bash
+   ln -s /path/to/ixv-util-markitdown-<version>-mac /usr/local/bin/ixv-util-markitdown
+   ```
+4. ターミナルで以下を実行
    ```bash
    ixv-util-markitdown input.docx -o output.md
    ```
@@ -119,6 +126,7 @@ ixv-util-markitdown --help
 ```
 
 *MarkItDown モードでは `input.pdf` のように `.docx` 以外のファイルも指定できます。*
+
 ### 非対話モード
 
 `--mode` オプションを指定するとモード選択のプロンプトをスキップできます。
@@ -130,7 +138,6 @@ ixv-util-markitdown input.docx --mode markitdown
 # NoMarkItDown モードで実行
 ixv-util-markitdown input.docx --mode nomarkitdown
 ```
-
 
 - `--mode` : 非対話モードで動作モードを指定（`markitdown` または `nomarkitdown`）
 - `-o, --output` : 出力ファイル名を指定
@@ -219,7 +226,7 @@ pyinstaller --onefile wrapper.py --name ixv-util-markitdown.exe
 
 - 出力：`dist/ixv-util-markitdown.exe`
 
-### macOS 用 `.app` のビルド
+### macOS 用単一実行ファイルのビルド
 
 ```bash
 # PyInstallerをインストール（dev-dependenciesに含まれています）
@@ -229,7 +236,7 @@ uv sync
 uv run pyinstaller scripts/IXV-util-MarkItDown-mac.spec
 ```
 
-- 出力：`dist/IXV-util-MarkItDown.app`
+- 出力：`dist/ixv-util-markitdown`
 - 注意：markitdownライブラリの依存関係を適切に同梱するため、必ず`scripts/IXV-util-MarkItDown-mac.spec`を使用してください
 
 ---
