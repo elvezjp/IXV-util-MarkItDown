@@ -90,6 +90,20 @@ ixv-util-markitdown --help
 
 *MarkItDown mode also accepts non-`.docx` files such as `input.pdf`.*
 
+### Non-interactive mode
+
+Use the `--mode` option to skip the mode selection prompt.
+
+```bash
+# Run in MarkItDown mode
+ixv-util-markitdown input.docx --mode markitdown
+
+# Run in NoMarkItDown mode
+ixv-util-markitdown input.docx --mode nomarkitdown
+```
+
+- `--mode` : Specify operation mode non-interactively (`markitdown` or `nomarkitdown`).
+
 - `-o, --output` : Specify the output file name.
 - `-d, --directory` : Specify the output directory (creates it if it doesn't exist).
 - `--no-save-images` : Embed images as base64 data URIs in markdown (default: save as separate files).
