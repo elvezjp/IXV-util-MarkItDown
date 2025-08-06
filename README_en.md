@@ -334,6 +334,12 @@ If you have modified files under `upstream/` in this project, conflicts may aris
    - Periodically check differences with upstream:
      `git diff markitdown-upstream/main HEAD -- upstream/`
 
+#### Upstream modification history
+
+- **2025-08-06**: Fixed issue where empty cells in Excel XLSX/XLS files were displayed as `NaN` (commit: 9185bb7)
+  - Modified `upstream/packages/markitdown/src/markitdown/converters/_xlsx_converter.py`
+  - Added `na_rep=""` parameter to pandas `to_html` method
+
 ---
 
 ## Distribution / Updates

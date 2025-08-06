@@ -351,6 +351,12 @@ IXV-util-MarkItDown側で`upstream/`ディレクトリ内のファイルを独�
    - 変更内容を文書化し、`docs/upstream-modifications.md`などに記録
    - 定期的に上流との差分を確認：`git diff markitdown-upstream/main HEAD -- upstream/`
 
+#### upstreamへの変更履歴
+
+- **2025-08-06**: ExcelファイルのXLSX/XLS変換時に空のセルが`NaN`として表示される問題を修正 (コミット: 9185bb7)
+  - `upstream/packages/markitdown/src/markitdown/converters/_xlsx_converter.py`を変更
+  - pandasの`to_html`メソッドに`na_rep=""`パラメータを追加
+
 ---
 
 ## 配布／アップデート
