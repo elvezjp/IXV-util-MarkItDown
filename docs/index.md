@@ -361,7 +361,7 @@ IXV-util-MarkItDown側で`upstream/`ディレクトリ内のファイルを独�
 
 ## 配布／アップデート
 
-- バイナリは GitHub Releases で公開
+- バイナリは GitHub Releases で公開を予定しています
 - Windows：Inno Setup / NSIS でインストーラ化推奨
 - macOS：`hdiutil create` で `.dmg` 化
 - 自動アップデートには Sparkle（macOS）や自作アップデータ（Windows）を利用可能
