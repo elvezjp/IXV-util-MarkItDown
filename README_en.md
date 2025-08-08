@@ -344,7 +344,7 @@ If you have modified files under `upstream/` in this project, conflicts may aris
 
 ## Distribution / Updates
 
-- Binaries are published on GitHub Releases.
+- Binaries are published on GitHub Releases (check the latest with `--latest-release`).
 - Windows: use Inno Setup / NSIS to create installers.
 - macOS: create `.dmg` with `hdiutil create`.
 - Automatic updates can be implemented with Sparkle on macOS or a custom updater on Windows.
