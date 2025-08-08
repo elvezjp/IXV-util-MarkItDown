@@ -380,7 +380,7 @@ IXV-util-MarkItDown側で`upstream/`ディレクトリ内のファイルを独�
 
 ## ライセンス
 
-MIT License © 2025 株式会社エルブズ（Elvez, Inc.）
+MIT License © 2025 株式会社エルブズ（Elvez, Inc.）。詳細は [LICENSE](./LICENSE) をご覧ください。
 
 本プロジェクトは [Microsoft MarkItDown](https://github.com/microsoft/MarkItDown) （MIT License）をベースとしています。
 
