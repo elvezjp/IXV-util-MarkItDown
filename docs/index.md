@@ -1,5 +1,5 @@
 # IXV-util-MarkItDown
-[English README](https://github.com/elvezjp/IXV-util-MarkItDown/blob/main/README_en.md) is available.
+[English README](./README_en.md) is available.
 
 <img width="1745" height="684" alt="ixv-util" src="https://github.com/user-attachments/assets/b4cca023-74f7-4068-897f-4558690fdbdd" />
 
@@ -374,13 +374,13 @@ IXV-util-MarkItDown側で`upstream/`ディレクトリ内のファイルを独�
 2. リポジトリを Fork → ブランチを作成
 3. Pull Request を送信
 
-詳細は [CONTRIBUTING.md](https://github.com/elvezjp/IXV-util-MarkItDown/blob/main/CONTRIBUTING.md) を参照
+詳細は [CONTRIBUTING.md](./CONTRIBUTING.md) を参照
 
 ---
 
 ## ライセンス
 
-MIT License © 2025 株式会社エルブズ（Elvez, Inc.）。詳細は [LICENSE](https://github.com/elvezjp/IXV-util-MarkItDown/blob/main/LICENSE) をご覧ください。
+MIT License © 2025 株式会社エルブズ（Elvez, Inc.）。詳細は [LICENSE](./LICENSE) をご覧ください。
 
 本プロジェクトは [Microsoft MarkItDown](https://github.com/microsoft/MarkItDown) （MIT License）をベースとしています。
 
