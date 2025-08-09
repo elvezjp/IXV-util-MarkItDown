@@ -13,6 +13,7 @@ try:
     from .image_extractor import extract_and_save_images, count_base64_images
 except ImportError:
     from image_extractor import extract_and_save_images, count_base64_images
+from .github_release import fetch_latest_release
 
 
 def choose_mode() -> str:
@@ -46,6 +47,12 @@ def parse_args(argv):
         "--no-save-images", 
         action="store_true", 
         help="Keep images as base64 data URIs in markdown (default: save as separate files)"
+    )
+
+    parser.add_argument(
+        "--latest-release",
+        action="store_true",
+        help="Show latest release information and exit",
     )
     
     args = parser.parse_args(argv)
@@ -139,6 +146,14 @@ def main(argv=None):
         argv = sys.argv[1:]
 
     args = parse_args(argv)
+
+    if args.latest_release:
+        try:
+            info = fetch_latest_release()
+            print(f"Latest release: {info['tag_name']} - {info['html_url']}")
+        except Exception as e:  # pragma: no cover - network errors
+            print(f"Error fetching release info: {e}")
+        return
 
     if args.mode:
         mode = args.mode
