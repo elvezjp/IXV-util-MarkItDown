@@ -13,7 +13,7 @@ dependencies = [
 ]
 
 [project.scripts]
-ixv-util-markitdown = "markitdown.cli:main"
+IXV-util-MarkItDown = "markitdown.cli:main"
 
 [build-system]
 requires = ["hatchling"]
@@ -44,6 +44,6 @@ console = true
 # macOS 単一実行ファイル作成用のPyInstaller設定
 entry-point = "wrapper.py"
 onefile = true
-name = "ixv-util-markitdown"
+name = "IXV-util-MarkItDown"
 console = true
 distpath = "./dist"

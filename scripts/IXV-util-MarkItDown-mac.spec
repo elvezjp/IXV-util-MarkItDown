@@ -49,7 +49,7 @@ exe = EXE(
     a.binaries,
     a.datas,
     [],
-    name='ixv-util-markitdown',
+    name='IXV-util-MarkItDown',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,

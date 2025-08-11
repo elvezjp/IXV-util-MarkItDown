@@ -15,18 +15,18 @@ jobs:
           - os: windows-latest
             platform: windows
             arch: x86
-            binary_name: ixv-util-markitdown.exe
-            asset_name: ixv-util-markitdown-windows-x86.exe
+            binary_name: IXV-util-MarkItDown.exe
+            asset_name: IXV-util-MarkItDown-windows-x86.exe
           - os: macos-13
             platform: macos
             arch: x86
-            binary_name: ixv-util-markitdown
-            asset_name: ixv-util-markitdown-macos-x86
+            binary_name: IXV-util-MarkItDown
+            asset_name: IXV-util-MarkItDown-macos-x86
           - os: macos-latest
             platform: macos
             arch: arm64
-            binary_name: ixv-util-markitdown
-            asset_name: ixv-util-markitdown-macos-arm64
+            binary_name: IXV-util-MarkItDown
+            asset_name: IXV-util-MarkItDown-macos-arm64
 
     steps:
       - name: Checkout code
@@ -47,7 +47,7 @@ jobs:
       - name: Build binary with PyInstaller
         run: |
           if [ "${{ matrix.platform }}" = "windows" ]; then
-            uv run pyinstaller --onefile wrapper.py --name ixv-util-markitdown.exe
+            uv run pyinstaller --onefile wrapper.py --name IXV-util-MarkItDown.exe
           else
             uv run pyinstaller scripts/IXV-util-MarkItDown-mac.spec
           fi
@@ -64,9 +64,9 @@ jobs:
         run: |
           cd dist
           if [ "${{ matrix.platform }}" = "windows" ]; then
-            mv ixv-util-markitdown.exe ${{ matrix.asset_name }}
+            mv IXV-util-MarkItDown.exe ${{ matrix.asset_name }}
           else
-            mv ixv-util-markitdown ${{ matrix.asset_name }}
+            mv IXV-util-MarkItDown ${{ matrix.asset_name }}
           fi
 
       - name: Upload build artifact
@@ -123,9 +123,9 @@ jobs:
 
             ## ダウンロード
 
-            - **Windows (x86)**: `ixv-util-markitdown-windows-x86.exe`
-            - **macOS (x86)**: `ixv-util-markitdown-macos-x86`
-            - **macOS (ARM64)**: `ixv-util-markitdown-macos-arm64`
+            - **Windows (x86)**: `IXV-util-MarkItDown-windows-x86.exe`
+            - **macOS (x86)**: `IXV-util-MarkItDown-macos-x86`
+            - **macOS (ARM64)**: `IXV-util-MarkItDown-macos-arm64`
 
             ${{ steps.readme_content.outputs.USAGE_CONTENT }}
 
@@ -144,8 +144,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: artifacts/ixv-util-markitdown-windows-x86.exe/ixv-util-markitdown-windows-x86.exe
-          asset_name: ixv-util-markitdown-windows-x86.exe
+          asset_path: artifacts/IXV-util-MarkItDown-windows-x86.exe/IXV-util-MarkItDown-windows-x86.exe
+          asset_name: IXV-util-MarkItDown-windows-x86.exe
           asset_content_type: application/octet-stream
 
       - name: Upload macOS x86 binary
@@ -154,8 +154,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: artifacts/ixv-util-markitdown-macos-x86/ixv-util-markitdown-macos-x86
-          asset_name: ixv-util-markitdown-macos-x86
+          asset_path: artifacts/IXV-util-MarkItDown-macos-x86/IXV-util-MarkItDown-macos-x86
+          asset_name: IXV-util-MarkItDown-macos-x86
           asset_content_type: application/octet-stream
 
       - name: Upload macOS ARM64 binary
@@ -164,6 +164,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: artifacts/ixv-util-markitdown-macos-arm64/ixv-util-markitdown-macos-arm64
-          asset_name: ixv-util-markitdown-macos-arm64
+          asset_path: artifacts/IXV-util-MarkItDown-macos-arm64/IXV-util-MarkItDown-macos-arm64
+          asset_name: IXV-util-MarkItDown-macos-arm64
           asset_content_type: application/octet-stream
