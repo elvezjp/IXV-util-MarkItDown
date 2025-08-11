@@ -80,9 +80,9 @@ NoMarkItDown モードは `.docx` のみ対応です。
 
 [Releases](https://github.com/elvezjp/IXV-util-MarkItDown/releases) からお使いの環境にあった最新版の実行ファイルをダウンロードしてください。
 
-- **Windows (x86)**: `ixv-util-markitdown-windows-x86.exe`
-- **macOS (x86)**: `ixv-util-markitdown-macos-x86`
-- **macOS (ARM64)**: `ixv-util-markitdown-macos-arm64`
+- **Windows (x86)**: `IXV-util-MarkItDown-windows-x86.exe`
+- **macOS (Intel)**: `IXV-util-MarkItDown-macos-x86`
+- **macOS (Apple Silicon)**: `IXV-util-MarkItDown-macos-arm64`
 
 ## 使い方
 
@@ -94,39 +94,64 @@ NoMarkItDown モードは `.docx` のみ対応です。
 
 ```bash
 # 単一ファイル変換
-ixv-util-markitdown.exe input.docx
+IXV-util-MarkItDown-windows-x86.exe input.docx
 
 # 複数ファイル一括変換
-ixv-util-markitdown.exe *.docx
+IXV-util-MarkItDown-windows-x86.exe *.docx
 
 # 出力先のディレクトリを指定
-ixv-util-markitdown.exe inputs/*.docx -d outputs
+IXV-util-MarkItDown-windows-x86.exe inputs/*.docx -d outputs
 
 # 変換オプション一覧
-ixv-util-markitdown.exe --help
+IXV-util-MarkItDown-windows-x86.exe --help
 ```
 
 ### macOS
 
+#### macOS (Intel)
+
 ```bash
 # 実行権限を付与（初回のみ）
-chmod +x ixv-util-markitdown
+chmod +x IXV-util-MarkItDown-macos-x86
 
 # macOSでは初回実行時にセキュリティダイアログが表示される場合があります。
 #「システム設定」→「プライバシーとセキュリティ」から実行を許可してください。
 # 再度実行時に「このまま開く」を選択してください。
 
 # 単一ファイル変換
-./ixv-util-markitdown input.docx
+./IXV-util-MarkItDown-macos-x86 input.docx
 
 # 複数ファイル一括変換
-./ixv-util-markitdown *.docx
+./IXV-util-MarkItDown-macos-x86 *.docx
 
 # 出力先のディレクトリを指定
-./ixv-util-markitdown inputs/*.docx -d outputs
+./IXV-util-MarkItDown-macos-x86 inputs/*.docx -d outputs
 
 # 変換オプション一覧
-./ixv-util-markitdown --help
+./IXV-util-MarkItDown-macos-x86 --help
+```
+
+#### macOS (Apple Silicon)
+
+```bash
+# 実行権限を付与（初回のみ）
+chmod +x IXV-util-MarkItDown-macos-arm64
+
+# macOSでは初回実行時にセキュリティダイアログが表示される場合があります。
+#「システム設定」→「プライバシーとセキュリティ」から実行を許可してください。
+# 再度実行時に「このまま開く」を選択してください。
+
+# 単一ファイル変換
+./IXV-util-MarkItDown-macos-arm64 input.docx
+
+# 複数ファイル一括変換
+./IXV-util-MarkItDown-macos-arm64 *.docx
+
+# 出力先のディレクトリを指定
+./IXV-util-MarkItDown-macos-arm64 inputs/*.docx -d outputs
+
+# 変換オプション一覧
+./IXV-util-MarkItDown-macos-arm64 --help
 ```
 
 #### 注意事項
@@ -145,11 +170,17 @@ macOSでは**初回実行時にセキュリティダイアログが表示**さ�
 `--mode` オプションを指定するとモード選択のプロンプトをスキップできます。
 
 ```bash
-# MarkItDown モードで実行
-ixv-util-markitdown input.docx --mode markitdown
+# Windowsの例
+IXV-util-MarkItDown-windows-x86.exe input.docx --mode markitdown
+IXV-util-MarkItDown-windows-x86.exe input.docx --mode nomarkitdown
 
-# NoMarkItDown モードで実行
-ixv-util-markitdown input.docx --mode nomarkitdown
+# macOS (Intel)の例
+./IXV-util-MarkItDown-macos-x86 input.docx --mode markitdown
+./IXV-util-MarkItDown-macos-x86 input.docx --mode nomarkitdown
+
+# macOS (Apple Silicon)の例
+./IXV-util-MarkItDown-macos-arm64 input.docx --mode markitdown
+./IXV-util-MarkItDown-macos-arm64 input.docx --mode nomarkitdown
 ```
 
 ### コマンドオプション
@@ -168,7 +199,7 @@ ixv-util-markitdown input.docx --mode nomarkitdown
 #### 1. 画像ファイル保存モード（デフォルト）
 ```bash
 # 画像を個別ファイルとして保存（推奨）
-ixv-util-markitdown document.docx -o output.md
+IXV-util-MarkItDown document.docx -o output.md
 ```
 
 - 画像は `images/` ディレクトリに保存されます
@@ -179,7 +210,7 @@ ixv-util-markitdown document.docx -o output.md
 #### 2. base64埋め込みモード
 ```bash
 # 画像をbase64データとしてマークダウンに埋め込み
-ixv-util-markitdown document.docx -o output.md --no-save-images
+IXV-util-MarkItDown document.docx -o output.md --no-save-images
 ```
 
 - 画像データがbase64形式でマークダウンに直接埋め込まれます
@@ -189,7 +220,7 @@ ixv-util-markitdown document.docx -o output.md --no-save-images
 #### 複数ファイル処理時の画像管理
 ```bash
 # 複数ファイルを一括変換
-ixv-util-markitdown *.docx -d outputs
+IXV-util-MarkItDown *.docx -d outputs
 ```
 
 各ファイルにファイル名がプレフィックスとして付与されるため、画像ファイル名の競合は発生しません：
@@ -236,10 +267,10 @@ uv pip install -e .
 uv sync
 
 # ビルド実行
-pyinstaller --onefile wrapper.py --name ixv-util-markitdown.exe
+pyinstaller --onefile wrapper.py --name IXV-util-MarkItDown.exe
 ```
 
-- 出力：`dist/ixv-util-markitdown.exe`
+- 出力：`dist/IXV-util-MarkItDown.exe`
 
 ### macOS 用単一実行ファイルのビルド
 
@@ -251,7 +282,7 @@ uv sync
 uv run pyinstaller scripts/IXV-util-MarkItDown-mac.spec
 ```
 
-- 出力：`dist/ixv-util-markitdown`
+- 出力：`dist/IXV-util-MarkItDown`
 - 注意：markitdownライブラリの依存関係を適切に同梱するため、必ず`scripts/IXV-util-MarkItDown-mac.spec`を使用してください
 
 ---
