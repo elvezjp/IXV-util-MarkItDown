@@ -1,6 +1,6 @@
 [project]
 name = "IXV-util-MarkItDown"
-version = "0.1.0"
+version = "0.0.1"
 description = "Simple docx to Markdown converter"
 authors = [
     {name = "Elvez", email = "info@elvez.co.jp"},
