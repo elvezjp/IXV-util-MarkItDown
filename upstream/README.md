@@ -22,7 +22,7 @@ MarkItDown currently supports the conversion from:
 - Word
 - Excel
 - Images (EXIF metadata and OCR)
-- Audio (EXIF metadata and speech transcription)
+- Audio (EXIF metadata)
 - HTML
 - Text-based formats (CSV, JSON, XML)
 - ZIP files (iterates over contents)
@@ -113,7 +113,6 @@ At the moment, the following optional dependencies are available:
 * `[pdf]` Installs dependencies for PDF files
 * `[outlook]` Installs dependencies for Outlook messages
 * `[az-doc-intel]` Installs dependencies for Azure Document Intelligence
-* `[audio-transcription]` Installs dependencies for audio transcription of wav and mp3 files
 * `[youtube-transcription]` Installs dependencies for fetching YouTube video transcription
 
 ### Plugins

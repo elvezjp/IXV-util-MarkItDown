@@ -64,7 +64,7 @@ MarkItDown mode can convert the following file formats to Markdown:
 - CSV: `.csv`
 - Plain text/Markdown/JSON: `.txt`, `.text`, `.md`, `.markdown`, `.json`, `.jsonl`
 - Images: `.jpg`, `.jpeg`, `.png`
-- Audio/Video: `.wav`, `.mp3`, `.m4a`, `.mp4`
+- Audio/Video (metadata only): `.wav`, `.mp3`, `.m4a`, `.mp4`
 - Jupyter Notebook: `.ipynb`
 - E-books: `.epub`
 - Outlook emails: `.msg`
