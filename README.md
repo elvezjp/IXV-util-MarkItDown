@@ -64,7 +64,7 @@ MarkItDown モードでは、以下のファイル形式を Markdown に変換�
 - CSV: `.csv`
 - プレーンテキスト/マークダウン/JSON: `.txt`, `.text`, `.md`, `.markdown`, `.json`, `.jsonl`
 - 画像: `.jpg`, `.jpeg`, `.png`
-- 音声/動画: `.wav`, `.mp3`, `.m4a`, `.mp4`
+- 音声/動画: `.wav`, `.mp3`, `.m4a`, `.mp4`（メタデータのみ、音声文字起こしなし）
 - Jupyter Notebook: `.ipynb`
 - 電子書籍: `.epub`
 - Outlook メール: `.msg`

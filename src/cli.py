@@ -1,8 +1,6 @@
 import argparse
 import os
 import sys
-import warnings
-
 try:
     from . import __version__
 except ImportError:  # pragma: no cover - fallback for isolated execution
@@ -10,10 +8,7 @@ except ImportError:  # pragma: no cover - fallback for isolated execution
 import zipfile
 import xml.etree.ElementTree as ET
 
-# Suppress pydub warning since we don't use audio/video features (#41, PR#44)
-with warnings.catch_warnings():
-    warnings.filterwarnings("ignore", message="Couldn't find ffmpeg or avconv", category=RuntimeWarning)
-    from markitdown import MarkItDown
+from markitdown import MarkItDown
 try:
     from .image_extractor import extract_and_save_images, count_base64_images
 except ImportError:

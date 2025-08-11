@@ -16,7 +16,7 @@ from markitdown import (
 
 # This file contains module tests that are not directly tested by the FileTestVectors.
 # This includes things like helper functions and runtime conversion options
-# (e.g., LLM clients, exiftool path, transcription services, etc.)
+# (e.g., LLM clients, exiftool path, etc.)
 
 skip_remote = (
     True if os.environ.get("GITHUB_ACTIONS") else False
@@ -305,25 +305,6 @@ def test_markitdown_remote() -> None:
         assert test_string in result.text_content
 
 
-@pytest.mark.skipif(
-    skip_remote,
-    reason="do not run remotely run speech transcription tests",
-)
-def test_speech_transcription() -> None:
-    markitdown = MarkItDown()
-
-    # Test WAV files, MP3 and M4A files
-    for file_name in ["test.wav", "test.mp3", "test.m4a"]:
-        result = markitdown.convert(os.path.join(TEST_FILES_DIR, file_name))
-        result_lower = result.text_content.lower()
-        assert (
-            ("1" in result_lower or "one" in result_lower)
-            and ("2" in result_lower or "two" in result_lower)
-            and ("3" in result_lower or "three" in result_lower)
-            and ("4" in result_lower or "four" in result_lower)
-            and ("5" in result_lower or "five" in result_lower)
-        )
-
 
 def test_exceptions() -> None:
     # Check that an exception is raised when trying to convert an unsupported format
@@ -405,7 +386,6 @@ if __name__ == "__main__":
         test_docx_comments,
         test_input_as_strings,
         test_markitdown_remote,
-        test_speech_transcription,
         test_exceptions,
         test_markitdown_exiftool,
         test_markitdown_llm,

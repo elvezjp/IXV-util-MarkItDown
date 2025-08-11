@@ -1,10 +1,8 @@
 from typing import Any, BinaryIO
 
 from ._exiftool import exiftool_metadata
-from ._transcribe_audio import transcribe_audio
 from .._base_converter import DocumentConverter, DocumentConverterResult
 from .._stream_info import StreamInfo
-from .._exceptions import MissingDependencyException
 
 ACCEPTED_MIME_TYPE_PREFIXES = [
     "audio/x-wav",
@@ -22,7 +20,7 @@ ACCEPTED_FILE_EXTENSIONS = [
 
 class AudioConverter(DocumentConverter):
     """
-    Converts audio files to markdown via extraction of metadata (if `exiftool` is installed), and speech transcription (if `speech_recognition` is installed).
+    Converts audio files to markdown via extraction of metadata (if `exiftool` is installed).
     """
 
     def accepts(
@@ -74,28 +72,6 @@ class AudioConverter(DocumentConverter):
             ]:
                 if f in metadata:
                     md_content += f"{f}: {metadata[f]}\n"
-
-        # Figure out the audio format for transcription
-        if stream_info.extension == ".wav" or stream_info.mimetype == "audio/x-wav":
-            audio_format = "wav"
-        elif stream_info.extension == ".mp3" or stream_info.mimetype == "audio/mpeg":
-            audio_format = "mp3"
-        elif (
-            stream_info.extension in [".mp4", ".m4a"]
-            or stream_info.mimetype == "video/mp4"
-        ):
-            audio_format = "mp4"
-        else:
-            audio_format = None
-
-        # Transcribe
-        if audio_format:
-            try:
-                transcript = transcribe_audio(file_stream, audio_format=audio_format)
-                if transcript:
-                    md_content += "\n\n### Audio Transcript:\n" + transcript
-            except MissingDependencyException:
-                pass
 
         # Return the result
         return DocumentConverterResult(markdown=md_content.strip())
