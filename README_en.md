@@ -80,9 +80,9 @@ NoMarkItDown mode only supports `.docx` files.
 
 Download the latest executable file for your environment from [Releases](https://github.com/elvezjp/IXV-util-MarkItDown/releases).
 
-- **Windows (x86)**: `ixv-util-markitdown-windows-x86.exe`
-- **macOS (x86)**: `ixv-util-markitdown-macos-x86`
-- **macOS (ARM64)**: `ixv-util-markitdown-macos-arm64`
+- **Windows (x86)**: `IXV-util-MarkItDown-windows-x86.exe`
+- **macOS (x86)**: `IXV-util-MarkItDown-macos-x86`
+- **macOS (ARM64)**: `IXV-util-MarkItDown-macos-arm64`
 
 ---
 
@@ -96,48 +96,48 @@ Download the latest executable file for your environment from [Releases](https:/
 
 ```bash
 # Convert a single file
-ixv-util-markitdown.exe input.docx
+IXV-util-MarkItDown.exe input.docx
 
 # Batch convert multiple files
-ixv-util-markitdown.exe *.docx
+IXV-util-MarkItDown.exe *.docx
 
 # Specify output directory
-ixv-util-markitdown.exe inputs/*.docx -d outputs
+IXV-util-MarkItDown.exe inputs/*.docx -d outputs
 
 # List conversion options
-ixv-util-markitdown.exe --help
+IXV-util-MarkItDown.exe --help
 ```
 
 ### macOS
 
 ```bash
 # Grant execute permissions (first time only)
-chmod +x ixv-util-markitdown
+chmod +x IXV-util-MarkItDown
 
 # macOS may display security dialogs on first run.
 # Grant permission through "System Settings" → "Privacy & Security".
 # Select "Open" when running again.
 
 # Convert a single file
-./ixv-util-markitdown input.docx
+./IXV-util-MarkItDown input.docx
 
 # Batch convert multiple files
-./ixv-util-markitdown *.docx
+./IXV-util-MarkItDown *.docx
 
 # Specify output directory
-./ixv-util-markitdown inputs/*.docx -d outputs
+./IXV-util-MarkItDown inputs/*.docx -d outputs
 
 # List conversion options
-./ixv-util-markitdown --help
+./IXV-util-MarkItDown --help
 ```
 
 #### Important Notes
 
 macOS may display **security dialogs on first run**.
 
-1. If you see a dialog saying '"ixv-util-markitdown" cannot be opened because the developer cannot be verified':
+1. If you see a dialog saying '"IXV-util-MarkItDown" cannot be opened because the developer cannot be verified':
    - Open "System Settings" → "Privacy & Security"
-   - In the Security section, find '"ixv-util-markitdown" was blocked from use because it is not from an identified developer' and click "Allow Anyway"
+   - In the Security section, find '"IXV-util-MarkItDown" was blocked from use because it is not from an identified developer' and click "Allow Anyway"
    - Enter your password to confirm
 
 2. If you see a "cannot verify the developer" dialog when running again:
@@ -152,10 +152,10 @@ Use the `--mode` option to skip the mode selection prompt.
 
 ```bash
 # Run in MarkItDown mode
-ixv-util-markitdown input.docx --mode markitdown
+IXV-util-MarkItDown input.docx --mode markitdown
 
 # Run in NoMarkItDown mode
-ixv-util-markitdown input.docx --mode nomarkitdown
+IXV-util-MarkItDown input.docx --mode nomarkitdown
 ```
 
 ### Command Options
@@ -174,7 +174,7 @@ In **MarkItDown mode**, images contained in documents can be processed in two wa
 #### 1. Image File Saving Mode (Default)
 ```bash
 # Save images as separate files (recommended)
-ixv-util-markitdown document.docx -o output.md
+IXV-util-MarkItDown document.docx -o output.md
 ```
 
 - Images are saved to an `images/` directory
@@ -185,7 +185,7 @@ ixv-util-markitdown document.docx -o output.md
 #### 2. Base64 Embedding Mode
 ```bash
 # Embed images as base64 data in markdown
-ixv-util-markitdown document.docx -o output.md --no-save-images
+IXV-util-MarkItDown document.docx -o output.md --no-save-images
 ```
 
 - Image data is directly embedded in markdown as base64 format
@@ -195,7 +195,7 @@ ixv-util-markitdown document.docx -o output.md --no-save-images
 #### Image Management for Multiple Files
 ```bash
 # Batch convert multiple files
-ixv-util-markitdown *.docx -d outputs
+IXV-util-MarkItDown *.docx -d outputs
 ```
 
 Each file gets a filename prefix to prevent filename conflicts:
@@ -242,10 +242,10 @@ uv pip install -e .
 uv sync
 
 # Build
-pyinstaller --onefile wrapper.py --name ixv-util-markitdown.exe
+pyinstaller --onefile wrapper.py --name IXV-util-MarkItDown.exe
 ```
 
-- Output: `dist/ixv-util-markitdown.exe`
+- Output: `dist/IXV-util-MarkItDown.exe`
 
 ### Build single executable for macOS
 
@@ -257,7 +257,7 @@ uv sync
 uv run pyinstaller scripts/IXV-util-MarkItDown-mac.spec
 ```
 
-- Output: `dist/ixv-util-markitdown`
+- Output: `dist/IXV-util-MarkItDown`
 - Note: Always use `scripts/IXV-util-MarkItDown-mac.spec` to properly bundle the markitdown library dependencies
 
 ---
