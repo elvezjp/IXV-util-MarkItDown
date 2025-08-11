@@ -81,8 +81,8 @@ NoMarkItDown mode only supports `.docx` files.
 Download the latest executable file for your environment from [Releases](https://github.com/elvezjp/IXV-util-MarkItDown/releases).
 
 - **Windows (x86)**: `IXV-util-MarkItDown-windows-x86.exe`
-- **macOS (x86)**: `IXV-util-MarkItDown-macos-x86`
-- **macOS (ARM64)**: `IXV-util-MarkItDown-macos-arm64`
+- **macOS (Intel)**: `IXV-util-MarkItDown-macos-x86`
+- **macOS (Apple Silicon)**: `IXV-util-MarkItDown-macos-arm64`
 
 ---
 
@@ -96,39 +96,64 @@ Download the latest executable file for your environment from [Releases](https:/
 
 ```bash
 # Convert a single file
-IXV-util-MarkItDown.exe input.docx
+IXV-util-MarkItDown-windows-x86.exe input.docx
 
 # Batch convert multiple files
-IXV-util-MarkItDown.exe *.docx
+IXV-util-MarkItDown-windows-x86.exe *.docx
 
 # Specify output directory
-IXV-util-MarkItDown.exe inputs/*.docx -d outputs
+IXV-util-MarkItDown-windows-x86.exe inputs/*.docx -d outputs
 
 # List conversion options
-IXV-util-MarkItDown.exe --help
+IXV-util-MarkItDown-windows-x86.exe --help
 ```
 
 ### macOS
 
+#### macOS (Intel)
+
 ```bash
 # Grant execute permissions (first time only)
-chmod +x IXV-util-MarkItDown
+chmod +x IXV-util-MarkItDown-macos-x86
 
 # macOS may display security dialogs on first run.
 # Grant permission through "System Settings" → "Privacy & Security".
 # Select "Open" when running again.
 
 # Convert a single file
-./IXV-util-MarkItDown input.docx
+./IXV-util-MarkItDown-macos-x86 input.docx
 
 # Batch convert multiple files
-./IXV-util-MarkItDown *.docx
+./IXV-util-MarkItDown-macos-x86 *.docx
 
 # Specify output directory
-./IXV-util-MarkItDown inputs/*.docx -d outputs
+./IXV-util-MarkItDown-macos-x86 inputs/*.docx -d outputs
 
 # List conversion options
-./IXV-util-MarkItDown --help
+./IXV-util-MarkItDown-macos-x86 --help
+```
+
+#### macOS (Apple Silicon)
+
+```bash
+# Grant execute permissions (first time only)
+chmod +x IXV-util-MarkItDown-macos-arm64
+
+# macOS may display security dialogs on first run.
+# Grant permission through "System Settings" → "Privacy & Security".
+# Select "Open" when running again.
+
+# Convert a single file
+./IXV-util-MarkItDown-macos-arm64 input.docx
+
+# Batch convert multiple files
+./IXV-util-MarkItDown-macos-arm64 *.docx
+
+# Specify output directory
+./IXV-util-MarkItDown-macos-arm64 inputs/*.docx -d outputs
+
+# List conversion options
+./IXV-util-MarkItDown-macos-arm64 --help
 ```
 
 #### Important Notes
@@ -151,11 +176,17 @@ macOS may display **security dialogs on first run**.
 Use the `--mode` option to skip the mode selection prompt.
 
 ```bash
-# Run in MarkItDown mode
-IXV-util-MarkItDown input.docx --mode markitdown
+# Windows examples
+IXV-util-MarkItDown-windows-x86.exe input.docx --mode markitdown
+IXV-util-MarkItDown-windows-x86.exe input.docx --mode nomarkitdown
 
-# Run in NoMarkItDown mode
-IXV-util-MarkItDown input.docx --mode nomarkitdown
+# macOS (Intel) examples
+./IXV-util-MarkItDown-macos-x86 input.docx --mode markitdown
+./IXV-util-MarkItDown-macos-x86 input.docx --mode nomarkitdown
+
+# macOS (Apple Silicon) examples
+./IXV-util-MarkItDown-macos-arm64 input.docx --mode markitdown
+./IXV-util-MarkItDown-macos-arm64 input.docx --mode nomarkitdown
 ```
 
 ### Command Options

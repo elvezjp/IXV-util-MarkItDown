@@ -81,8 +81,8 @@ NoMarkItDown モードは `.docx` のみ対応です。
 [Releases](https://github.com/elvezjp/IXV-util-MarkItDown/releases) からお使いの環境にあった最新版の実行ファイルをダウンロードしてください。
 
 - **Windows (x86)**: `IXV-util-MarkItDown-windows-x86.exe`
-- **macOS (x86)**: `IXV-util-MarkItDown-macos-x86`
-- **macOS (ARM64)**: `IXV-util-MarkItDown-macos-arm64`
+- **macOS (Intel)**: `IXV-util-MarkItDown-macos-x86`
+- **macOS (Apple Silicon)**: `IXV-util-MarkItDown-macos-arm64`
 
 ## 使い方
 
@@ -94,39 +94,64 @@ NoMarkItDown モードは `.docx` のみ対応です。
 
 ```bash
 # 単一ファイル変換
-IXV-util-MarkItDown.exe input.docx
+IXV-util-MarkItDown-windows-x86.exe input.docx
 
 # 複数ファイル一括変換
-IXV-util-MarkItDown.exe *.docx
+IXV-util-MarkItDown-windows-x86.exe *.docx
 
 # 出力先のディレクトリを指定
-IXV-util-MarkItDown.exe inputs/*.docx -d outputs
+IXV-util-MarkItDown-windows-x86.exe inputs/*.docx -d outputs
 
 # 変換オプション一覧
-IXV-util-MarkItDown.exe --help
+IXV-util-MarkItDown-windows-x86.exe --help
 ```
 
 ### macOS
 
+#### macOS (Intel)
+
 ```bash
 # 実行権限を付与（初回のみ）
-chmod +x IXV-util-MarkItDown
+chmod +x IXV-util-MarkItDown-macos-x86
 
 # macOSでは初回実行時にセキュリティダイアログが表示される場合があります。
 #「システム設定」→「プライバシーとセキュリティ」から実行を許可してください。
 # 再度実行時に「このまま開く」を選択してください。
 
 # 単一ファイル変換
-./IXV-util-MarkItDown input.docx
+./IXV-util-MarkItDown-macos-x86 input.docx
 
 # 複数ファイル一括変換
-./IXV-util-MarkItDown *.docx
+./IXV-util-MarkItDown-macos-x86 *.docx
 
 # 出力先のディレクトリを指定
-./IXV-util-MarkItDown inputs/*.docx -d outputs
+./IXV-util-MarkItDown-macos-x86 inputs/*.docx -d outputs
 
 # 変換オプション一覧
-./IXV-util-MarkItDown --help
+./IXV-util-MarkItDown-macos-x86 --help
+```
+
+#### macOS (Apple Silicon)
+
+```bash
+# 実行権限を付与（初回のみ）
+chmod +x IXV-util-MarkItDown-macos-arm64
+
+# macOSでは初回実行時にセキュリティダイアログが表示される場合があります。
+#「システム設定」→「プライバシーとセキュリティ」から実行を許可してください。
+# 再度実行時に「このまま開く」を選択してください。
+
+# 単一ファイル変換
+./IXV-util-MarkItDown-macos-arm64 input.docx
+
+# 複数ファイル一括変換
+./IXV-util-MarkItDown-macos-arm64 *.docx
+
+# 出力先のディレクトリを指定
+./IXV-util-MarkItDown-macos-arm64 inputs/*.docx -d outputs
+
+# 変換オプション一覧
+./IXV-util-MarkItDown-macos-arm64 --help
 ```
 
 #### 注意事項
@@ -145,11 +170,17 @@ macOSでは**初回実行時にセキュリティダイアログが表示**さ�
 `--mode` オプションを指定するとモード選択のプロンプトをスキップできます。
 
 ```bash
-# MarkItDown モードで実行
-IXV-util-MarkItDown input.docx --mode markitdown
+# Windowsの例
+IXV-util-MarkItDown-windows-x86.exe input.docx --mode markitdown
+IXV-util-MarkItDown-windows-x86.exe input.docx --mode nomarkitdown
 
-# NoMarkItDown モードで実行
-IXV-util-MarkItDown input.docx --mode nomarkitdown
+# macOS (Intel)の例
+./IXV-util-MarkItDown-macos-x86 input.docx --mode markitdown
+./IXV-util-MarkItDown-macos-x86 input.docx --mode nomarkitdown
+
+# macOS (Apple Silicon)の例
+./IXV-util-MarkItDown-macos-arm64 input.docx --mode markitdown
+./IXV-util-MarkItDown-macos-arm64 input.docx --mode nomarkitdown
 ```
 
 ### コマンドオプション
