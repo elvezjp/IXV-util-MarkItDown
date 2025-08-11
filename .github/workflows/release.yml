@@ -19,9 +19,9 @@ jobs:
             asset_name: ixv-util-markitdown-windows-x86.exe
           - os: macos-13
             platform: macos
-            arch: intel
+            arch: x86
             binary_name: ixv-util-markitdown
-            asset_name: ixv-util-markitdown-macos-intel
+            asset_name: ixv-util-markitdown-macos-x86
           - os: macos-latest
             platform: macos
             arch: arm64
@@ -124,7 +124,7 @@ jobs:
             ## ダウンロード
 
             - **Windows (x86)**: `ixv-util-markitdown-windows-x86.exe`
-            - **macOS (Intel)**: `ixv-util-markitdown-macos-intel`
+            - **macOS (x86)**: `ixv-util-markitdown-macos-x86`
             - **macOS (ARM64)**: `ixv-util-markitdown-macos-arm64`
 
             ${{ steps.readme_content.outputs.USAGE_CONTENT }}
@@ -148,14 +148,14 @@ jobs:
           asset_name: ixv-util-markitdown-windows-x86.exe
           asset_content_type: application/octet-stream
 
-      - name: Upload macOS Intel binary
+      - name: Upload macOS x86 binary
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: artifacts/ixv-util-markitdown-macos-intel/ixv-util-markitdown-macos-intel
-          asset_name: ixv-util-markitdown-macos-intel
+          asset_path: artifacts/ixv-util-markitdown-macos-x86/ixv-util-markitdown-macos-x86
+          asset_name: ixv-util-markitdown-macos-x86
           asset_content_type: application/octet-stream
 
       - name: Upload macOS ARM64 binary

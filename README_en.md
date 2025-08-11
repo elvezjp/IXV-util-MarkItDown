@@ -81,7 +81,7 @@ NoMarkItDown mode only supports `.docx` files.
 Download the latest executable file for your environment from [Releases](https://github.com/elvezjp/IXV-util-MarkItDown/releases).
 
 - **Windows (x86)**: `ixv-util-markitdown-windows-x86.exe`
-- **macOS (Intel)**: `ixv-util-markitdown-macos-intel`
+- **macOS (x86)**: `ixv-util-markitdown-macos-x86`
 - **macOS (ARM64)**: `ixv-util-markitdown-macos-arm64`
 
 ---
