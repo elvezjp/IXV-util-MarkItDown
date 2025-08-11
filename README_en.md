@@ -1,6 +1,10 @@
 # IXV-util-MarkItDown
+[日本語版README](./README.md) is available.
 
-IXV-util-MarkItDown bundles Microsoft MarkItDown into a cross-platform CLI utility available as a standalone executable (`.exe`) for Windows and an application (`.app`) for macOS. In MarkItDown mode it accepts not only `.docx` but also other formats supported by the library, such as PDF, and converts them to Markdown.
+<img width="1745" height="684" alt="ixv-util" src="https://github.com/user-attachments/assets/b4cca023-74f7-4068-897f-4558690fdbdd" />
+
+
+IXV-util-MarkItDown is a cross-platform CLI utility that bundles Microsoft MarkItDown-based Markdown conversion tools as standalone executables (`.exe`) for Windows and macOS applications (`.app`). In MarkItDown mode, it can convert not only `.docx` but also other file formats supported by the MarkItDown library, such as PDF, to Markdown.
 
 ---
 
@@ -11,41 +15,43 @@ IXV is a next-generation AI development support platform developed by Elves Inc.
 
 ## What is the IXV-util Series?
 The IXV-util series is a collection of lightweight utility tools born from the IXV development process, designed to support daily development tasks.
-
 These tools can be used not only as part of the IXV platform but also independently, with the goal of improving developers' daily work efficiency.
-
-They are also provided as open source and are continuously improved through collaboration with the developer community.
+IXV-util-MarkItDown is also provided as open source and is continuously improved through collaboration with the developer community.
 
 ---
 
-# Why Markdown?
-We have created many documents in software development projects. Legacy tools such as Word and Excel are difficult to parse and reuse programmatically. They look organized on the surface, but their underlying structure is ambiguous, making automated processing and AI utilization challenging. Markdown is close to plain text, requiring only minimal markup while still expressing important document structure. Modern large language models can speak Markdown natively and often respond in Markdown without being asked. We believe Markdown is the file format of note for interactions between humans and AI.
+# Why We Focus on Markdown
+We have created many documents in Japanese development environments over the years. Various tools from different eras, such as Word and Excel, were extremely difficult to structurally analyze, reuse, or process programmatically. While they appeared well-organized on the surface, their structure was ambiguous from a computer's perspective, creating significant barriers to automated processing and AI utilization.
+
+Markdown is very close to plain text, requiring minimal markup or formatting while still providing a means to express important document structure. Many of the major large language models (LLMs) currently available have the native ability to "speak" Markdown, and often return responses in Markdown even without being instructed to do so.
+
+When focusing on human-AI interaction, we believe that Markdown format text is the file format that deserves attention.
 
 ---
 
 ## Features
 
-- **High-quality conversion**: Uses the core functions of Microsoft MarkItDown to properly convert images, tables, lists, formulas, etc. into Markdown.
-- **Cross-platform**: Runs natively on Windows (`.exe`) and macOS (`.app`).
-- **Simple CLI**: No GUI, easy to incorporate into scripts or CI/CD.
-- **Batch processing**: Supports converting multiple files at once.
-- **Open source**: Customizable freely under the MIT license.
+- **High-quality conversion**: Uses the core functions of Microsoft MarkItDown to properly convert images, tables, lists, formulas, etc. into Markdown
+- **Cross-platform**: Runs natively on Windows (`.exe`) / macOS (`.app`)
+- **Simple CLI**: No GUI, easy to incorporate into scripts or CI/CD
+- **Batch processing**: Supports converting multiple files at once
+- **Open source**: Customizable freely under the MIT license
 
 ---
 
-## Modes of operation
+## Operating Modes
 
-The tool has two modes:
+This tool has two operating modes:
 
-1. **MarkItDown mode**: Uses the full Microsoft MarkItDown functionality.
-   - Supports advanced conversion of images, tables, lists, formulas, and more.
-   - Does not check file extensions and can handle any format supported by MarkItDown, such as PDF or PPTX.
+1. **MarkItDown Mode**: Uses the complete functionality of Microsoft MarkItDown
+   - Supports advanced conversion of images, tables, lists, formulas, and more
+   - Does not perform extension checking, and processes file formats supported by the MarkItDown library such as PDF and PPTX
 
-2. **NoMarkItDown mode**: Simple built-in implementation.
-   - Extracts only basic text.
-   - Lightweight and fast.
+2. **NoMarkItDown Mode**: Simple proprietary implementation
+   - Basic text extraction only from `.docx` files (other extensions will error)
+   - Lightweight and fast operation
 
-You choose which mode to use when launching the program.
+You can select which mode to use when starting the program.
 
 ## Supported File Formats
 
@@ -74,19 +80,26 @@ NoMarkItDown mode only supports `.docx` files.
 
 ### Windows
 
-1. Download the latest `IXV-util-MarkItDown-<version>-win.exe` from [Releases](https://github.com/elvezjp/IXV-util-MarkItDown/releases).
-2. Place it in any folder and add it to your PATH if necessary.
+1. Download the latest `ixv-util-markitdown-windows-x86.exe` from [Releases](https://github.com/elvezjp/IXV-util-MarkItDown/releases)
+2. Place it in any folder and add it to your PATH if necessary
 3. Run the following in Command Prompt or PowerShell:
    ```bat
-   ixv-util-markitdown input.docx -o output.md
+   ixv-util-markitdown.exe input.docx -o output.md
    ```
    *In MarkItDown mode you may also specify other formats like `input.pdf`.*
 
 ### macOS
 
-1. Download `IXV-util-MarkItDown-<version>.dmg` from [Releases](https://github.com/elvezjp/IXV-util-MarkItDown/releases).
-2. Mount the DMG and drag the application to your `Applications` folder.
-3. Run the following in Terminal:
+1. Download the latest `ixv-util-markitdown-macos-intel` or `ixv-util-markitdown-macos-arm64` from [Releases](https://github.com/elvezjp/IXV-util-MarkItDown/releases)
+2. Place it in any folder and grant execute permissions if necessary
+   ```bash
+   chmod +x ixv-util-markitdown-macos-arm64
+   ```
+3. If needed, add it to your PATH or create a symbolic link to `/usr/local/bin`
+   ```bash
+   ln -s /path/to/ixv-util-markitdown-macos-arm64 /usr/local/bin/ixv-util-markitdown
+   ```
+4. Run the following in Terminal:
    ```bash
    ixv-util-markitdown input.docx -o output.md
    ```
@@ -96,22 +109,78 @@ NoMarkItDown mode only supports `.docx` files.
 
 ## Usage
 
+### Basic Usage
+
 When executed, you are first asked to choose **MarkItDown mode** or **NoMarkItDown mode**. After choosing, specify your input as follows:
+
+#### Windows
 
 ```bash
 # Convert a single file
-ixv-util-markitdown input.docx -o output.md
+ixv-util-markitdown.exe input.docx
 
 # Batch convert multiple files
-ixv-util-markitdown *.docx -d docs/markdown
+ixv-util-markitdown.exe *.docx
+
+# Specify output directory
+ixv-util-markitdown.exe inputs/*.docx -d outputs
 
 # List options
-ixv-util-markitdown --help
+ixv-util-markitdown.exe --help
+```
+
+#### macOS
+
+```bash
+# Grant execute permissions (first time only)
+chmod +x ixv-util-markitdown
+
+# Convert a single file
+./ixv-util-markitdown input.docx
+
+# Batch convert multiple files
+./ixv-util-markitdown *.docx
+
+# Specify output directory
+./ixv-util-markitdown inputs/*.docx -d outputs
+
+# List options
+./ixv-util-markitdown --help
 ```
 
 *MarkItDown mode also accepts non-`.docx` files such as `input.pdf`.*
 
-### Non-interactive mode
+### Important Notes
+
+#### macOS Security Dialogs on First Run
+
+macOS may display **security dialogs on first run**.
+
+1. If you see a dialog saying '"ixv-util-markitdown" cannot be opened because the developer cannot be verified':
+   - Open "System Settings" → "Privacy & Security"
+   - In the Security section, find '"ixv-util-markitdown" was blocked from use because it is not from an identified developer' and click "Allow Anyway"
+   - Enter your password to confirm
+
+2. If you see a "cannot verify the developer" dialog when running again:
+   - Click "Open"
+
+<img height="300" alt="macOS Security Settings Screen" src="https://github.com/user-attachments/assets/82488961-3294-4cd2-a669-385d2a0434c1" />
+<img height="300" alt="App Permission Dialog" src="https://github.com/user-attachments/assets/fe23d278-4a18-4df5-8bd6-3bb5ee3a2098" />
+
+#### Execute Permissions
+
+On macOS and Linux, you need to grant execute permissions to the downloaded executable:
+
+```bash
+# Grant execute permissions
+chmod +x ixv-util-markitdown
+
+# Check if execute permissions are granted
+ls -la ixv-util-markitdown
+# Should show x characters like -rwxr-xr-x
+```
+
+### Non-interactive Mode
 
 Use the `--mode` option to skip the mode selection prompt.
 
@@ -123,13 +192,14 @@ ixv-util-markitdown input.docx --mode markitdown
 ixv-util-markitdown input.docx --mode nomarkitdown
 ```
 
-- `--mode` : Specify operation mode non-interactively (`markitdown` or `nomarkitdown`).
+### Command Options
 
-- `-o, --output` : Specify the output file name.
-- `-d, --directory` : Specify the output directory (creates it if it doesn't exist).
-- `--no-save-images` : Embed images as base64 data URIs in markdown (default: save as separate files).
-- `-v, --version` : Display version.
-- `-h, --help`    : Show help.
+- `--mode` : Specify operation mode non-interactively (`markitdown` or `nomarkitdown`)
+- `-o, --output` : Specify the output file name
+- `-d, --directory` : Specify the output directory (creates it if it doesn't exist)
+- `--no-save-images` : Embed images as base64 data URIs in markdown (default: save as separate files)
+- `-v, --version` : Display version
+- `-h, --help`    : Show help
 
 ### Image Handling
 
@@ -202,8 +272,8 @@ uv pip install -e .
 ### Build `.exe` for Windows
 
 ```bash
-# Install PyInstaller
-uv pip install pyinstaller
+# PyInstaller is included in dev-dependencies
+uv sync
 
 # Build
 pyinstaller --onefile wrapper.py --name ixv-util-markitdown.exe
@@ -211,18 +281,18 @@ pyinstaller --onefile wrapper.py --name ixv-util-markitdown.exe
 
 - Output: `dist/ixv-util-markitdown.exe`
 
-### Build `.app` for macOS
+### Build single executable for macOS
 
 ```bash
-# Install PyInstaller (included in dev dependencies)
+# PyInstaller is included in dev-dependencies
 uv sync
 
 # Build (using macOS spec file)
 uv run pyinstaller scripts/IXV-util-MarkItDown-mac.spec
 ```
 
-- Output: `dist/IXV-util-MarkItDown.app`
-- Note: Use `scripts/IXV-util-MarkItDown-mac.spec` to properly bundle the markitdown library dependencies
+- Output: `dist/ixv-util-markitdown`
+- Note: Always use `scripts/IXV-util-MarkItDown-mac.spec` to properly bundle the markitdown library dependencies
 
 ---
 
@@ -344,10 +414,10 @@ If you have modified files under `upstream/` in this project, conflicts may aris
 
 ## Distribution / Updates
 
-- Binaries are published on GitHub Releases.
-- Windows: use Inno Setup / NSIS to create installers.
-- macOS: create `.dmg` with `hdiutil create`.
-- Automatic updates can be implemented with Sparkle on macOS or a custom updater on Windows.
+- Binaries are planned to be published on GitHub Releases
+- Windows: Inno Setup / NSIS installer creation recommended
+- macOS: `.dmg` creation with `hdiutil create`
+- Automatic updates can use Sparkle (macOS) or custom updater (Windows)
 
 ---
 
@@ -363,12 +433,27 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for details.
 
 ## License
 
-MIT License © 2025 Elvez, Inc.
+MIT License © 2025 Elvez, Inc. For details, see [LICENSE](./LICENSE).
+
+This project is based on [Microsoft MarkItDown](https://github.com/microsoft/MarkItDown) (MIT License).
 
 ---
 
 ## Acknowledgments
 
-- [Microsoft MarkItDown](https://github.com/microsoft/MarkItDown)
-- [PyInstaller](https://www.pyinstaller.org/)
-- Icon sources: Font Awesome, Google Material Icons
+We would like to express our sincere gratitude to the following contributors for making this project possible.
+
+### Microsoft MarkItDown Team
+The high-quality document conversion functionality at the core of this tool is based on the excellent achievements of the [Microsoft MarkItDown](https://github.com/microsoft/MarkItDown) project. We are deeply grateful for making this available as open source, enabling the conversion of documents with complex elements such as images, tables, and formulas to Markdown.
+
+### Development Tools & Library Providers
+- **[PyInstaller](https://www.pyinstaller.org/) Development Team**: Thank you for enabling the creation of cross-platform standalone executables.
+- **Python Community**: The rich library ecosystem made efficient development possible.
+
+### Open Source Community
+IXV-util-MarkItDown is provided as open source under the MIT License and is continuously improved through collaboration with many developers. We are grateful to all who contribute bug reports, feature suggestions, and code contributions.
+
+### Japanese Development Community
+The vast document assets created over the years using various tools such as Word and Excel, and the needs from the field to convert them to formats suitable for the AI era, have been the driving force behind this project. We pay respect to the knowledge and experience cultivated in Japanese development environments.
+
+We believe that Markdown will play an important bridging role in the future where human-AI collaboration becomes commonplace. We hope this tool will help make the daily work of many developers even slightly more efficient, allowing more time to be devoted to creative activities.
