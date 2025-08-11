@@ -76,44 +76,23 @@ NoMarkItDown mode only supports `.docx` files.
 
 ---
 
-## Installation
+## Download
 
-### Windows
+Download the latest executable file for your environment from [Releases](https://github.com/elvezjp/IXV-util-MarkItDown/releases).
 
-1. Download the latest `ixv-util-markitdown-windows-x86.exe` from [Releases](https://github.com/elvezjp/IXV-util-MarkItDown/releases)
-2. Place it in any folder and add it to your PATH if necessary
-3. Run the following in Command Prompt or PowerShell:
-   ```bat
-   ixv-util-markitdown.exe input.docx -o output.md
-   ```
-   *In MarkItDown mode you may also specify other formats like `input.pdf`.*
-
-### macOS
-
-1. Download the latest `ixv-util-markitdown-macos-intel` or `ixv-util-markitdown-macos-arm64` from [Releases](https://github.com/elvezjp/IXV-util-MarkItDown/releases)
-2. Place it in any folder and grant execute permissions if necessary
-   ```bash
-   chmod +x ixv-util-markitdown-macos-arm64
-   ```
-3. If needed, add it to your PATH or create a symbolic link to `/usr/local/bin`
-   ```bash
-   ln -s /path/to/ixv-util-markitdown-macos-arm64 /usr/local/bin/ixv-util-markitdown
-   ```
-4. Run the following in Terminal:
-   ```bash
-   ixv-util-markitdown input.docx -o output.md
-   ```
-   *In MarkItDown mode you may also specify other formats like `input.pdf`.*
+- **Windows (x86)**: `ixv-util-markitdown-windows-x86.exe`
+- **macOS (Intel)**: `ixv-util-markitdown-macos-intel`
+- **macOS (ARM64)**: `ixv-util-markitdown-macos-arm64`
 
 ---
 
 ## Usage
 
-### Basic Usage
+**MarkItDown mode** and **NoMarkItDown mode** selection prompts will be displayed.
 
-When executed, you are first asked to choose **MarkItDown mode** or **NoMarkItDown mode**. After choosing, specify your input as follows:
+*In MarkItDown mode, you can also specify files other than `.docx` such as `input.pdf`.*
 
-#### Windows
+### Windows
 
 ```bash
 # Convert a single file
@@ -125,15 +104,19 @@ ixv-util-markitdown.exe *.docx
 # Specify output directory
 ixv-util-markitdown.exe inputs/*.docx -d outputs
 
-# List options
+# List conversion options
 ixv-util-markitdown.exe --help
 ```
 
-#### macOS
+### macOS
 
 ```bash
 # Grant execute permissions (first time only)
 chmod +x ixv-util-markitdown
+
+# macOS may display security dialogs on first run.
+# Grant permission through "System Settings" → "Privacy & Security".
+# Select "Open" when running again.
 
 # Convert a single file
 ./ixv-util-markitdown input.docx
@@ -144,15 +127,11 @@ chmod +x ixv-util-markitdown
 # Specify output directory
 ./ixv-util-markitdown inputs/*.docx -d outputs
 
-# List options
+# List conversion options
 ./ixv-util-markitdown --help
 ```
 
-*MarkItDown mode also accepts non-`.docx` files such as `input.pdf`.*
-
-### Important Notes
-
-#### macOS Security Dialogs on First Run
+#### Important Notes
 
 macOS may display **security dialogs on first run**.
 
@@ -164,21 +143,8 @@ macOS may display **security dialogs on first run**.
 2. If you see a "cannot verify the developer" dialog when running again:
    - Click "Open"
 
-<img height="300" alt="macOS Security Settings Screen" src="https://github.com/user-attachments/assets/82488961-3294-4cd2-a669-385d2a0434c1" />
-<img height="300" alt="App Permission Dialog" src="https://github.com/user-attachments/assets/fe23d278-4a18-4df5-8bd6-3bb5ee3a2098" />
-
-#### Execute Permissions
-
-On macOS and Linux, you need to grant execute permissions to the downloaded executable:
-
-```bash
-# Grant execute permissions
-chmod +x ixv-util-markitdown
-
-# Check if execute permissions are granted
-ls -la ixv-util-markitdown
-# Should show x characters like -rwxr-xr-x
-```
+<img height="300" alt="20250811プライバシーとセキュリティ設定" src="https://github.com/user-attachments/assets/82488961-3294-4cd2-a669-385d2a0434c1" />
+<img height="300" alt="20250811アプリ実行許可" src="https://github.com/user-attachments/assets/fe23d278-4a18-4df5-8bd6-3bb5ee3a2098" />
 
 ### Non-interactive Mode
 

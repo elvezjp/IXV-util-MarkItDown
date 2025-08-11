@@ -76,62 +76,21 @@ NoMarkItDown モードは `.docx` のみ対応です。
 
 ---
 
+## ダウンロード
+
+[Releases](https://github.com/elvezjp/IXV-util-MarkItDown/releases) からお使いの環境にあった最新版の実行ファイルをダウンロードしてください。
+
+- **Windows (x86)**: `ixv-util-markitdown-windows-x86.exe`
+- **macOS (Intel)**: `ixv-util-markitdown-macos-intel`
+- **macOS (ARM64)**: `ixv-util-markitdown-macos-arm64`
+
 ## 使い方
 
-### インストール
+**MarkItDown モード** と **NoMarkItDown モード** の選択プロンプトが表示されます。
 
-#### Windows
+*MarkItDown モードでは `input.pdf` のように `.docx` 以外のファイルも指定できます。*
 
-1. [Releases](https://github.com/elvezjp/IXV-util-MarkItDown/releases) から最新版の `IXV-util-MarkItDown-<version>-win.exe` をダウンロード
-2. 任意のフォルダに配置し、必要であれば PATH 環境変数に追加
-3. コマンドプロンプトまたは PowerShell で以下を実行
-   ```bat
-   ixv-util-markitdown input.docx -o output.md
-   ```
-   *MarkItDown モードでは `input.pdf` など他形式も指定できます。*
-
-#### macOS
-
-1. [Releases](https://github.com/elvezjp/IXV-util-MarkItDown/releases) から最新版の `ixv-util-markitdown-<version>-mac` をダウンロード
-2. 任意のフォルダに配置し、実行権限を付与
-   ```bash
-   chmod +x ixv-util-markitdown-<version>-mac
-   ```
-3. 必要であれば PATH 環境変数に追加するか、`/usr/local/bin` にシンボリックリンクを作成
-   ```bash
-   ln -s /path/to/ixv-util-markitdown-<version>-mac /usr/local/bin/ixv-util-markitdown
-   ```
-4. ターミナルで以下を実行
-   ```bash
-   ixv-util-markitdown input.docx -o output.md
-   ```
-   *MarkItDown モードでは `input.pdf` など他形式も指定できます。*
-
-#### 注意事項
-
-##### macOSでの初回実行時のセキュリティダイアログ
-
-macOSでは**初回実行時にセキュリティダイアログが表示**される場合があります。
-
-1. 「"ixv-util-markitdown"は、開発元を検証できないため開けません」というダイアログが表示された場合：
-   - 「システム設定」→「プライバシーとセキュリティ」を開く
-   - セキュリティセクションで「"ixv-util-markitdown"は開発元を確認できないため、使用がブロックされました」の横にある「このまま許可」をクリック
-   - パスワードを入力して許可
-
-2. 再度実行時に「開発元を検証できません」ダイアログが表示された場合：
-   - 「このまま開く」を選択
-
-<img height="300" alt="macOSセキュリティ設定画面" src="https://github.com/user-attachments/assets/82488961-3294-4cd2-a669-385d2a0434c1" />
-<img height="300" alt="アプリ実行許可ダイアログ" src="https://github.com/user-attachments/assets/fe23d278-4a18-4df5-8bd6-3bb5ee3a2098" />
-
-
----
-
-### 基本的な使用方法
-
-変換したいファイルパスを引数に指定して実行すると、直後に **MarkItDown モード** と **NoMarkItDown モード** の選択プロンプトが表示されます。
-
-#### Windows
+### Windows
 
 ```bash
 # 単一ファイル変換
@@ -147,11 +106,15 @@ ixv-util-markitdown.exe inputs/*.docx -d outputs
 ixv-util-markitdown.exe --help
 ```
 
-#### macOS
+### macOS
 
 ```bash
 # 実行権限を付与（初回のみ）
 chmod +x ixv-util-markitdown
+
+# macOSでは初回実行時にセキュリティダイアログが表示される場合があります。
+#「システム設定」→「プライバシーとセキュリティ」から実行を許可してください。
+# 再度実行時に「このまま開く」を選択してください。
 
 # 単一ファイル変換
 ./ixv-util-markitdown input.docx
@@ -166,7 +129,20 @@ chmod +x ixv-util-markitdown
 ./ixv-util-markitdown --help
 ```
 
-*MarkItDown モードでは `input.pdf` のように `.docx` 以外のファイルも指定できます。*
+#### 注意事項
+
+macOSでは**初回実行時にセキュリティダイアログが表示**される場合があります。
+
+1. 「"ixv-util-markitdown"は、開発元を検証できないため開けません」というダイアログが表示された場合：
+   - 「システム設定」→「プライバシーとセキュリティ」を開く
+   - セキュリティセクションで「"ixv-util-markitdown"は開発元を確認できないため、使用がブロックされました」の横にある「このまま許可」をクリック
+   - パスワードを入力して許可
+
+2. 再度実行時に「開発元を検証できません」ダイアログが表示された場合：
+   - 「このまま開く」を選択
+
+<img height="300" alt="20250811プライバシーとセキュリティ設定" src="https://github.com/user-attachments/assets/82488961-3294-4cd2-a669-385d2a0434c1" />
+<img height="300" alt="20250811アプリ実行許可" src="https://github.com/user-attachments/assets/fe23d278-4a18-4df5-8bd6-3bb5ee3a2098" />
 
 
 ### 非対話モード
