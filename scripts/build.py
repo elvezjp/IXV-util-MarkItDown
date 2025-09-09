@@ -8,7 +8,18 @@ import os
 import sys
 import subprocess
 import platform
+import site
 from pathlib import Path
+
+def get_site_packages():
+    """Get site_packages path"""
+    for path in sys.path:
+        if 'site-packages' in path and Path(path).exists():
+            return path
+    packages = site.getsitepackages()
+    if packages:
+        return packages[0]
+    return None
 
 def create_spec_file():
     """Create PyInstaller spec file with proper configuration"""
@@ -16,20 +27,49 @@ def create_spec_file():
     # Get project root directory
     project_root = Path(__file__).parent.parent
     
+    # Get site_packages path
+    site_packages = Path(get_site_packages())
+    
     # Determine executable name based on platform
     exe_name = 'IXV-util-MarkItDown.exe' if platform.system() == 'Windows' else 'IXV-util-MarkItDown'
     
     spec_content = f'''# -*- mode: python ; coding: utf-8 -*-
 
+import os
+import site
+import sys
+from pathlib import Path
+
+# Get the project root directory
+project_root = Path(os.path.abspath(SPECPATH)).parent
+
+# Add the project root to Python path for imports
+sys.path.insert(0, str(project_root))
+
+# Get site_packages path
+def get_site_packages():
+    for path in sys.path:
+        if 'site-packages' in path and Path(path).exists():
+            return path
+    packages = site.getsitepackages()
+    if packages:
+        return packages[0]
+    return None
+
+site_packages = Path(get_site_packages())
+
 a = Analysis(
     ['wrapper.py'],
-    pathex=['{project_root}'],
+    pathex=[str(project_root), str(project_root / 'src')],
     binaries=[],
     datas=[
+        (str(site_packages / 'magika/models'), 'magika/models'),
+        (str(site_packages / 'magika/config'), 'magika/config'),
         ('pyproject.toml', '.'),
         ('src', 'src'),
+        ('src/image_extractor.py', '.'),
     ],
-    hiddenimports=[],
+    hiddenimports=['image_extractor'],
     hookspath=[],
     hooksconfig={{}},
     runtime_hooks=[],
