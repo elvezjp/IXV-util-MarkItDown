@@ -62,3 +62,6 @@ docs/README.md
 *.tmp
 *.bak
 ~*
+
+# PyInstaller
+*.spec
