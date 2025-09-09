@@ -7,6 +7,7 @@ Creates PyInstaller spec file and builds the executable
 import os
 import sys
 import subprocess
+import platform
 from pathlib import Path
 
 def create_spec_file():
@@ -14,6 +15,9 @@ def create_spec_file():
     
     # Get project root directory
     project_root = Path(__file__).parent.parent
+    
+    # Determine executable name based on platform
+    exe_name = 'IXV-util-MarkItDown.exe' if platform.system() == 'Windows' else 'IXV-util-MarkItDown'
     
     spec_content = f'''# -*- mode: python ; coding: utf-8 -*-
 
@@ -42,7 +46,7 @@ exe = EXE(
     a.binaries,
     a.datas,
     [],
-    name='IXV-util-MarkItDown',
+    name='{exe_name}',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
@@ -81,7 +85,8 @@ def build_executable():
         ], check=True, cwd=spec_path.parent)
         
         print("Build completed successfully!")
-        print(f"Executable created: ./dist/IXV-util-MarkItDown")
+        exe_name = 'IXV-util-MarkItDown.exe' if platform.system() == 'Windows' else 'IXV-util-MarkItDown'
+        print(f"Executable created: ./dist/{exe_name}")
         
     except subprocess.CalledProcessError as e:
         print(f"Build failed: {{e}}")

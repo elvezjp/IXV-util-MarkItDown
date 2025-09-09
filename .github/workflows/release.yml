@@ -46,11 +46,7 @@ jobs:
 
       - name: Build binary with PyInstaller
         run: |
-          if [ "${{ matrix.platform }}" = "windows" ]; then
-            uv run pyinstaller --onefile wrapper.py --name IXV-util-MarkItDown.exe
-          else
-            uv run pyinstaller scripts/IXV-util-MarkItDown-mac.spec
-          fi
+          uv run python scripts/build.py
         shell: bash
 
       - name: List dist directory contents
