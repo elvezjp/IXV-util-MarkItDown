@@ -37,19 +37,34 @@ if [ ! -d "$OUTPUT_DIR" ]; then
     mkdir -p "$OUTPUT_DIR"
 fi
 
-# 変換したファイル数のカウンタ
-converted_count=0
-error_count=0
+# 対象ファイルの数を取得
+total_files=$(find "$INPUT_DIR" -type f -name "*.$EXTENSION" | wc -l | tr -d ' ')
+
+# ファイルが見つからない場合の処理
+if [ "$total_files" -eq 0 ]; then
+    echo "エラー: 対象となる .$EXTENSION ファイルが見つかりませんでした"
+    exit 1
+fi
+
+# 一時ファイルを作成してカウンタを保持
+temp_file=$(mktemp)
+echo "0 0" > "$temp_file"
 
 echo "================================================"
 echo "変換開始"
 echo "入力ディレクトリ: $INPUT_DIR"
 echo "出力ディレクトリ: $OUTPUT_DIR"
 echo "対象拡張子: .$EXTENSION"
+echo "対象ファイル数: $total_files"
 echo "================================================"
 
 # 指定された拡張子のファイルを再帰的に検索して処理
-find "$INPUT_DIR" -type f -name "*.$EXTENSION" | while read -r file_path; do
+current_file=0
+find "$INPUT_DIR" -type f -name "*.$EXTENSION" | while IFS= read -r file_path; do
+    ((current_file++))
+
+    # カウンタを読み込み
+    read converted_count error_count < "$temp_file"
     # 入力ディレクトリからの相対パスを取得
     relative_path="${file_path#$INPUT_DIR/}"
 
@@ -60,7 +75,7 @@ find "$INPUT_DIR" -type f -name "*.$EXTENSION" | while read -r file_path; do
     # 出力ディレクトリを作成
     mkdir -p "$output_dir"
 
-    echo "変換中: $relative_path"
+    echo "[$current_file/$total_files] 変換中: $relative_path"
 
     # 実行するコマンドを表示
     echo "  コマンド: $CONVERTER --mode markitdown --output \"$output_path\" \"$file_path\""
@@ -73,10 +88,19 @@ find "$INPUT_DIR" -type f -name "*.$EXTENSION" | while read -r file_path; do
         echo "  ✗ エラー: $file_path の変換に失敗しました"
         ((error_count++))
     fi
+
+    # カウンタを一時ファイルに保存
+    echo "$converted_count $error_count" > "$temp_file"
 done
+
+# 最終的なカウンタを読み込み
+read converted_count error_count < "$temp_file"
+
+# 一時ファイルを削除
+rm -f "$temp_file"
 
 echo "================================================"
 echo "変換完了"
-echo "成功: $converted_count ファイル"
-echo "エラー: $error_count ファイル"
+echo "成功: $converted_count / $total_files ファイル"
+echo "エラー: $error_count / $total_files ファイル"
 echo "================================================"
