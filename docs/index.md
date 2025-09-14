@@ -287,6 +287,40 @@ uv run pyinstaller scripts/IXV-util-MarkItDown-mac.spec
 
 ---
 
+## 元のディレクトリ構成を維持したバッチ実行方法
+
+ディレクトリ内の複数ファイルを、元のディレクトリ構造を保持したまま一括変換するためのスクリプトを提供しています。
+
+### 使用方法
+
+```bash
+# 基本的な使用方法（docxファイルを変換）
+./scripts/convert_keep_dir_construct.sh <入力ディレクトリ> <出力ディレクトリ>
+
+# 拡張子を指定する場合
+./scripts/convert_keep_dir_construct.sh <入力ディレクトリ> <出力ディレクトリ> <拡張子>
+```
+
+### 実行例
+
+```bash
+# docxファイルを変換（デフォルト）
+./scripts/convert_keep_dir_construct.sh ./documents ./outputs
+
+# pptxファイルを変換
+./scripts/convert_keep_dir_construct.sh ./presentations ./outputs pptx
+```
+
+### 動作仕様
+
+- 指定された入力ディレクトリから、対象拡張子のファイルを再帰的に検索
+- 元のディレクトリ構造を保持して出力
+  - 例: `documents/project/report.docx` → `outputs/project/report.md`
+- 各ファイルに対して `IXV-util-MarkItDown --mode markitdown --directory` を実行
+- 変換の進捗と結果をリアルタイムで表示
+
+---
+
 ## CLI 実装について
 
 `src/cli.py` に実装されたCLIは、選択されたモードに応じて以下の処理を行います：
