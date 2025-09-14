@@ -50,6 +50,7 @@ uv.lock
 htmlcov/
 inputs/
 outputs/
+execution.log
 
 # Output files
 *.md

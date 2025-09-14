@@ -2,6 +2,10 @@ import argparse
 import os
 import sys
 import warnings
+import signal
+from datetime import datetime
+from pathlib import Path
+import time
 
 try:
     from . import __version__
@@ -117,44 +121,143 @@ def run_nomarkitdown(input_path):
     return "\n\n".join(paragraphs)
 
 
-def process_files(args, converter_func):
+def process_files(args, converter_func, log_file=None):
     """Process files using the specified converter function."""
     if args.directory:
         os.makedirs(args.directory, exist_ok=True)
 
+    def _append_log(text: str) -> None:
+        if log_file and log_file.exists():
+            with log_file.open("a", encoding="utf-8") as f:
+                f.write(text + "\n")
+
     save_images = not args.no_save_images
+    total_files = len(args.files)
+    processed_files = 0
+    error_files = 0
+    processing_start_time = datetime.now()
+
+    # Log processing start
+    mode = "markitdown" if converter_func == run_markitdown else "nomarkitdown"
+    _append_log(f"markitdown_start: {processing_start_time.isoformat()}, files: {total_files}, mode: {mode}")
+    print(f"Processing {total_files} files using {mode} mode...")
 
     for input_path in args.files:
+        file_start_time = time.perf_counter()
         try:
             output_path = get_output_path(input_path, args)
-            
+
             if converter_func == run_markitdown:
                 content = converter_func(input_path, save_images=save_images, output_path=output_path)
             else:
                 content = converter_func(input_path)
-                
+
             write_output(content, output_path)
-            print(f"Converted: {input_path} -> {output_path}")
+            file_duration = time.perf_counter() - file_start_time
+            processed_files += 1
+
+            _append_log(f"file_result: file={input_path}, status=success, duration={file_duration:.3f}s")
+            print(f"Converted: {input_path} -> {output_path} ({file_duration:.3f}s)")
         except Exception as e:
-            print(f"Error converting {input_path}: {e}")
+            file_duration = time.perf_counter() - file_start_time
+            error_files += 1
+
+            _append_log(f"file_result: file={input_path}, status=error, duration={file_duration:.3f}s, error=\"{str(e)}\"")
+            print(f"Error converting {input_path}: {e} ({file_duration:.3f}s)")
+
+    processing_duration = (datetime.now() - processing_start_time).total_seconds()
+    print(f"\nProcessing completed: {processed_files} successful, {error_files} errors")
+    print(f"Processing time: {processing_duration:.2f}s")
+
+    return processing_duration
 
 
 def main(argv=None):
     if argv is None:
         argv = sys.argv[1:]
 
-    args = parse_args(argv)
+    # Initialize timing and logging
+    start_time = datetime.now()
+    processing_start_time = None
+    log_file = Path.cwd() / "execution.log"
+    exit_logged = False
 
-    if args.mode:
-        mode = args.mode
-    else:
-        choice = choose_mode()
-        mode = "markitdown" if choice == "1" else "nomarkitdown"
+    def _append_log(text: str) -> None:
+        with log_file.open("a", encoding="utf-8") as f:
+            f.write(text + "\n")
 
-    if mode == "markitdown":
-        process_files(args, run_markitdown)
-    else:
-        process_files(args, run_nomarkitdown)
+    # Initialize log file if it doesn't exist
+    if not log_file.exists():
+        with log_file.open("w", encoding="utf-8") as f:
+            f.write("# IXV-util-MarkItDown 実行ログ\n")
+            f.write("# このファイルはIXV-util-MarkItDown実行時の各種タイミング情報を記録します。\n")
+            f.write("# \n")
+            f.write("# ログフォーマット:\n")
+            f.write("#   start: プログラム開始時刻\n")
+            f.write("#   markitdown_start: 処理開始時刻, files: 対象ファイル数, mode: 変換モード\n")
+            f.write("#   file_result: file=ファイル名, status=成功/失敗, duration=処理時間(秒)\n")
+            f.write("#   end: プログラム終了時刻, total_duration: 全体実行時間(秒), processing_duration: 処理時間(秒)\n")
+            f.write("#" + "=" * 70 + "\n\n")
+
+    _append_log(f"start: {start_time.isoformat()}")
+    print(f"IXV-util-MarkItDown started at {start_time.strftime('%Y-%m-%d %H:%M:%S')}")
+
+    def _exit_handler() -> None:
+        nonlocal exit_logged
+        if exit_logged:
+            return
+        exit_logged = True
+
+        end_time = datetime.now()
+        total_duration = (end_time - start_time).total_seconds()
+
+        if processing_start_time is not None:
+            processing_duration = (end_time - processing_start_time).total_seconds()
+            _append_log(
+                f"end: {end_time.isoformat()}, total_duration: {total_duration:.2f}s, processing_duration: {processing_duration:.2f}s"
+            )
+            print(
+                f"Total execution time: {total_duration:.2f}s (processing: {processing_duration:.2f}s)"
+            )
+        else:
+            _append_log(f"end: {end_time.isoformat()}, total_duration: {total_duration:.2f}s")
+            print(f"Total execution time: {total_duration:.2f}s")
+
+    def _handle_signal(signum, frame):
+        _exit_handler()
+        sys.exit(1)
+
+    # Register signal handlers for graceful shutdown
+    for sig in (signal.SIGINT, signal.SIGTERM):
+        try:
+            signal.signal(sig, _handle_signal)
+        except ValueError:
+            pass
+
+    try:
+        args = parse_args(argv)
+
+        if args.mode:
+            mode = args.mode
+        else:
+            choice = choose_mode()
+            mode = "markitdown" if choice == "1" else "nomarkitdown"
+
+        processing_start_time = datetime.now()
+
+        if mode == "markitdown":
+            process_duration = process_files(args, run_markitdown, log_file)
+        else:
+            process_duration = process_files(args, run_nomarkitdown, log_file)
+
+        # Normal exit
+        sys.exit(0)
+
+    except Exception as e:
+        print(f"Error: {str(e)}")
+        sys.exit(1)
+    finally:
+        _exit_handler()
 
 
 if __name__ == "__main__":
