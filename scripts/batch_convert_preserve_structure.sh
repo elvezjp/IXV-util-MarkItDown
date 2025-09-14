@@ -52,6 +52,7 @@ echo "0 0" > "$temp_file"
 
 echo "================================================"
 echo "変換開始"
+SECONDS=0  # 経過時間計測開始
 echo "入力ディレクトリ: $INPUT_DIR"
 echo "出力ディレクトリ: $OUTPUT_DIR"
 echo "対象拡張子: .$EXTENSION"
@@ -99,8 +100,14 @@ read converted_count error_count < "$temp_file"
 # 一時ファイルを削除
 rm -f "$temp_file"
 
+elapsed=$SECONDS
+hours=$((elapsed / 3600))
+minutes=$(((elapsed % 3600) / 60))
+seconds=$((elapsed % 60))
+
 echo "================================================"
 echo "変換完了"
 echo "成功: $converted_count / $total_files ファイル"
 echo "エラー: $error_count / $total_files ファイル"
+printf "所要時間: %02d時間%02d分%02d秒\n" "$hours" "$minutes" "$seconds"
 echo "================================================"
