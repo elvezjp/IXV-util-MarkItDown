@@ -295,20 +295,20 @@ uv run pyinstaller scripts/IXV-util-MarkItDown-mac.spec
 
 ```bash
 # 基本的な使用方法（docxファイルを変換）
-./scripts/convert_keep_dir_construct.sh <入力ディレクトリ> <出力ディレクトリ>
+./scripts/batch_convert_preserve_structure.sh <入力ディレクトリ> <出力ディレクトリ>
 
 # 拡張子を指定する場合
-./scripts/convert_keep_dir_construct.sh <入力ディレクトリ> <出力ディレクトリ> <拡張子>
+./scripts/batch_convert_preserve_structure.sh <入力ディレクトリ> <出力ディレクトリ> <拡張子>
 ```
 
 ### 実行例
 
 ```bash
 # docxファイルを変換（デフォルト）
-./scripts/convert_keep_dir_construct.sh ./documents ./outputs
+./scripts/batch_convert_preserve_structure.sh ./documents ./outputs
 
 # pptxファイルを変換
-./scripts/convert_keep_dir_construct.sh ./presentations ./outputs pptx
+./scripts/batch_convert_preserve_structure.sh ./presentations ./outputs pptx
 ```
 
 ### 動作仕様
