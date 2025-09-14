@@ -59,10 +59,10 @@ find "$INPUT_DIR" -type f -name "*.$EXTENSION" | while read -r file_path; do
     echo "変換中: $relative_path"
 
     # 実行するコマンドを表示
-    echo "  コマンド: $CONVERTER --mode markitdown --input \"$file_path\" --directory \"$output_dir\""
+    echo "  コマンド: $CONVERTER --mode markitdown --directory \"$output_dir\" \"$file_path\""
 
     # IXV-util-MarkItDownを実行（--directoryオプションを使用）
-    if "$CONVERTER" --mode markitdown --input "$file_path" --directory "$output_dir" 2>/dev/null; then
+    if "$CONVERTER" --mode markitdown --directory "$output_dir" "$file_path"; then
         output_path="$output_dir/$(basename "${file_path%.$EXTENSION}.md")"
         echo "  ✓ 成功: $output_path"
         ((converted_count++))
