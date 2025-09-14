@@ -293,6 +293,40 @@ uv run pyinstaller scripts/IXV-util-MarkItDown-mac.spec
 
 ---
 
+## Batch Conversion with Preserved Directory Structure
+
+A script is provided to batch convert multiple files in a directory while preserving the original directory structure.
+
+### Usage
+
+```bash
+# Basic usage (converts docx files)
+./scripts/batch_convert_preserve_structure.sh <input_directory> <output_directory>
+
+# Specify file extension
+./scripts/batch_convert_preserve_structure.sh <input_directory> <output_directory> <extension>
+```
+
+### Examples
+
+```bash
+# Convert docx files (default)
+./scripts/batch_convert_preserve_structure.sh ./documents ./outputs
+
+# Convert pptx files
+./scripts/batch_convert_preserve_structure.sh ./presentations ./outputs pptx
+```
+
+### Features
+
+- Recursively searches for files with the specified extension in the input directory
+- Preserves the original directory structure in the output
+  - Example: `documents/project/report.docx` → `outputs/project/report.md`
+- Executes `IXV-util-MarkItDown --mode markitdown --directory` for each file
+- Displays real-time progress and results
+
+---
+
 ## About the CLI implementation
 
 The CLI implemented in `src/cli.py` performs different actions depending on the selected mode:
