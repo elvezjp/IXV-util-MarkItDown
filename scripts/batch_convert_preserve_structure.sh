@@ -53,17 +53,20 @@ find "$INPUT_DIR" -type f -name "*.$EXTENSION" | while read -r file_path; do
     # 入力ディレクトリからの相対パスを取得
     relative_path="${file_path#$INPUT_DIR/}"
 
-    # 出力ファイルのディレクトリパスを生成
+    # 出力ファイルのパスを生成
     output_dir="$OUTPUT_DIR/$(dirname "$relative_path")"
+    output_path="$output_dir/$(basename "$file_path").md"
+
+    # 出力ディレクトリを作成
+    mkdir -p "$output_dir"
 
     echo "変換中: $relative_path"
 
     # 実行するコマンドを表示
-    echo "  コマンド: $CONVERTER --mode markitdown --directory \"$output_dir\" \"$file_path\""
+    echo "  コマンド: $CONVERTER --mode markitdown --output \"$output_path\" \"$file_path\""
 
-    # IXV-util-MarkItDownを実行（--directoryオプションを使用）
-    if "$CONVERTER" --mode markitdown --directory "$output_dir" "$file_path"; then
-        output_path="$output_dir/$(basename "${file_path%.$EXTENSION}.md")"
+    # IXV-util-MarkItDownを実行（--outputオプションを使用）
+    if "$CONVERTER" --mode markitdown --output "$output_path" "$file_path"; then
         echo "  ✓ 成功: $output_path"
         ((converted_count++))
     else

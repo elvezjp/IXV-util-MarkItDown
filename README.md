@@ -315,8 +315,8 @@ uv run pyinstaller scripts/IXV-util-MarkItDown-mac.spec
 
 - 指定された入力ディレクトリから、対象拡張子のファイルを再帰的に検索
 - 元のディレクトリ構造を保持して出力
-  - 例: `documents/project/report.docx` → `outputs/project/report.md`
-- 各ファイルに対して `IXV-util-MarkItDown --mode markitdown --directory` を実行
+  - 例: `documents/project/report.docx` → `outputs/project/report.docx.md`
+- 各ファイルに対して `IXV-util-MarkItDown --mode markitdown --output` を実行
 - 変換の進捗と結果をリアルタイムで表示
 
 ---

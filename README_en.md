@@ -321,8 +321,8 @@ A script is provided to batch convert multiple files in a directory while preser
 
 - Recursively searches for files with the specified extension in the input directory
 - Preserves the original directory structure in the output
-  - Example: `documents/project/report.docx` → `outputs/project/report.md`
-- Executes `IXV-util-MarkItDown --mode markitdown --directory` for each file
+  - Example: `documents/project/report.docx` → `outputs/project/report.docx.md`
+- Executes `IXV-util-MarkItDown --mode markitdown --output` for each file
 - Displays real-time progress and results
 
 ---
