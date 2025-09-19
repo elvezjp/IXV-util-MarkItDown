@@ -20,8 +20,10 @@ with warnings.catch_warnings():
     from markitdown import MarkItDown
 try:
     from .image_extractor import extract_and_save_images, count_base64_images
+    from .util.ascii_logo import display_project_logo
 except ImportError:
     from image_extractor import extract_and_save_images, count_base64_images
+    from util.ascii_logo import display_project_logo
 
 
 def choose_mode() -> str:
@@ -198,6 +200,9 @@ def main(argv=None):
             f.write("#   file_result: file=ファイル名, status=成功/失敗, duration=処理時間(秒)\n")
             f.write("#   end: プログラム終了時刻, total_duration: 全体実行時間(秒), processing_duration: 処理時間(秒)\n")
             f.write("#" + "=" * 70 + "\n\n")
+
+    # Display ASCII logo
+    display_project_logo(display_name="IXV-util-MarkItDown")
 
     _append_log(f"start: {start_time.isoformat()}")
     print(f"IXV-util-MarkItDown started at {start_time.strftime('%Y-%m-%d %H:%M:%S')}")

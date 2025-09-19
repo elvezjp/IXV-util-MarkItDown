@@ -11,6 +11,13 @@ project_root = Path(os.path.abspath(SPECPATH)).parent
 # Add the project root to Python path for imports
 sys.path.insert(0, str(project_root))
 
+# Import pyfiglet fonts path function
+try:
+    from src.util.ascii_logo import get_pyfiglet_fonts_path
+    pyfiglet_fonts_path = get_pyfiglet_fonts_path()
+except ImportError:
+    pyfiglet_fonts_path = None
+
 # Get site_packages path
 def get_site_packages():
       for path in sys.path:
@@ -31,7 +38,9 @@ a = Analysis(
         (str(site_packages / 'magika/models'), 'magika/models'),
         (str(site_packages / 'magika/config'), 'magika/config'),
         (str(project_root / 'src/image_extractor.py'), '.'),
-    ],
+    ] + ([
+        (pyfiglet_fonts_path, 'pyfiglet/fonts'),
+    ] if pyfiglet_fonts_path else []),
     hiddenimports=['image_extractor'],
     hookspath=[],
     hooksconfig={},
