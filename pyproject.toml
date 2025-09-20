@@ -11,6 +11,7 @@ readme = "README.md"
 dependencies = [
     "markitdown[all] @ {root:uri}/upstream/packages/markitdown",
     "pyfiglet>=1.0.4",
+    "ixv-util-common @ git+https://github.com/elvezjp/IXV-util-common.git@24deb349dfaae5a4eabcacd8b81fcd248f937701",
 ]
 
 [project.scripts]
