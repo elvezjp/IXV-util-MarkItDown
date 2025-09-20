@@ -19,11 +19,16 @@ with warnings.catch_warnings():
     warnings.filterwarnings("ignore", message="Couldn't find ffmpeg or avconv", category=RuntimeWarning)
     from markitdown import MarkItDown
 try:
+    from ixv_util_common.ascii_logo.ascii_logo import display_project_logo
+except ImportError as exc:
+    raise ImportError(
+        "ixv-util-common がインストールされていません。依存関係をインストールしてください。"
+    ) from exc
+
+try:
     from .image_extractor import extract_and_save_images, count_base64_images
-    from .util.ascii_logo import display_project_logo
 except ImportError:
     from image_extractor import extract_and_save_images, count_base64_images
-    from util.ascii_logo import display_project_logo
 
 
 def choose_mode() -> str:
